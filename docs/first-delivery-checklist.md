@@ -17,9 +17,9 @@ Use UCO 1.5.0 and the [PROV-O Recommendation of 30 April 2013](https://www.w3.or
 
 ## Implementation
 
-- [ ] Define classes, properties, and relationships across the four vocabularies, keeping them independent of honeypot implementations.
-- [ ] Document UCO 1.5.0 reuse and PROV-O provenance, including the rationale for application-specific terms.
-- [ ] Define deployment, observation, and source-record identifiers; document duplicate handling and identity limits.
+- [x] Define classes, properties, and relationships across the four vocabularies, keeping them independent of honeypot implementations. See [module structure and initial verification](./architecture.md).
+- [x] Document UCO 1.5.0 reuse and PROV-O provenance, including the rationale for application-specific terms. See [vocabulary reuse](./vocabulary-reuse.md).
+- [x] Define deployment, observation, and source-record identifiers; document duplicate handling and identity limits. See [identity policy](./identity-policy.md).
 - [ ] Distinguish interactions, observations, source records, and observed objects; keep session membership optional.
 - [ ] Represent captured events, available session and network context, authentication, commands, and reported outcomes.
 - [ ] Represent available client/protocol metadata, fingerprints, forwarding observations, errors, and detector labels.
