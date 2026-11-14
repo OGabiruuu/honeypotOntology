@@ -8,8 +8,9 @@ The ontology's vocabulary is expressed in OWL using Turtle and organized into fo
 
 - [Requirements and objectives](./docs/orsd.md)
 - [Module structure, term inventory, and namespaces](./docs/architecture.md)
-- [Interactions, observations, source records, and observed objects](./docs/observation-model.md)
 - [UCO and PROV-O reuse decisions](./docs/vocabulary-reuse.md)
+- [Event, authentication, command, client, and protocol vocabulary](./docs/interaction-vocabulary.md)
+- [Interactions, observations, source records, and observed objects](./docs/observation-model.md)
 - [Identifiers, duplicate handling, and identity limits](./docs/identity-policy.md)
 - [Ontology entry point](./ontology/honeypot.ttl) and [local import catalog](./ontology/catalog-v001.xml)
 

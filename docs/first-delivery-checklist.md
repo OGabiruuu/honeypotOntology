@@ -21,8 +21,8 @@ Use UCO 1.5.0 and the [PROV-O Recommendation of 30 April 2013](https://www.w3.or
 - [x] Document UCO 1.5.0 reuse and PROV-O provenance, including the rationale for application-specific terms. See [vocabulary reuse](./vocabulary-reuse.md).
 - [x] Define deployment, observation, and source-record identifiers; document duplicate handling and identity limits. See [identity policy](./identity-policy.md).
 - [x] Distinguish interactions, observations, source records, and observed objects; keep session membership optional. See the [observation model](./observation-model.md).
-- [ ] Represent captured events, available session and network context, authentication, commands, and reported outcomes.
-- [ ] Represent available client/protocol metadata, fingerprints, forwarding observations, errors, and detector labels.
+- [x] Represent captured events, available session and network context, authentication, commands, and reported outcomes. See the [interaction vocabulary](./interaction-vocabulary.md).
+- [x] Represent available client/protocol metadata, fingerprints, forwarding observations, errors, and detector labels. See the [interaction vocabulary](./interaction-vocabulary.md).
 - [ ] Represent file transfers and failures, captured contents, terminal recordings, paths, and hash algorithms.
 - [ ] Represent country/ASN enrichments with available lookup times and source metadata.
 - [ ] Document the conceptual correspondence with JSON and PostgreSQL, coverage differences, transformations, unavailable information, and ambiguous ingestion history.

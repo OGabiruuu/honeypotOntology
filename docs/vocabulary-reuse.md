@@ -48,6 +48,31 @@ UCO 1.5.0 declares `core:Event` disjoint with `action:Action`. Therefore, `inter
 
 Application properties are introduced for meanings absent from the selected reused properties: installation association, presented environments, optional session context, source location, and evidential support. For example, `evidence:supportedByRecord` is not a subproperty of `prov:wasDerivedFrom`: a supporting record does not prove a specific derivation.
 
+## Interaction and protocol extensions
+
+The [interaction vocabulary](./interaction-vocabulary.md) adds source-report specializations while preserving the established UCO/PROV boundaries:
+
+- Connection attempts, authentication attempts, command submissions, credential-change attempts, protocol negotiations, and forwarding requests inherit `inter:Interaction` and therefore UCO `observable:ObservableAction`. These optional action resources do not assert success or require a session.
+- Event, session, authentication, command, client, negotiation, forwarding, error, and detection observation classes inherit informational `evidence:Observation` and `prov:Entity`. They are not subclasses of UCO `core:Event`, `action:Action`, or the observing activity.
+- Protocol fingerprints, presented public-key material, and traffic fragments specialize UCO `observable:ObservableObject`. They are distinct concepts rather than aliases for a file, a credential pair, or an actor.
+- Named protocol parameters and individual ordered values specialize `core:UcoObject`. Their application-specific role preserves source parameter names, repeated values, optional ordering, and explicit empty lists without requiring one vendor's protocol schema.
+- Credential-change reports are not restricted to command reports. An established command context can be represented through additional typing; other honeypot interfaces are not forced to model credential changes as shell commands.
+
+Direct reuse includes `observable:NetworkConnection`, `observable:NetworkConnectionFacet`, appropriate IP-address classes/facets, `core:hasFacet`, `observable:src`, `observable:dst`, `observable:sourcePort`, `observable:destinationPort`, and `observable:addressValue`. These represent available network characteristics without introducing local synonyms. UCO `observable:protocols` expects a controlled dictionary; the local `evidence:protocolName` instead explicitly preserves a source-reported string.
+
+UCO `observable:EnvironmentVariable` is an inherent characterization, not an ObservableObject. `evidence:clientVariable` points to that descriptor directly, with `core:name` and `observable:value`; it is not a specialization of `evidence:describesObject`. This respects UCO's separation of inherent characterizations and content objects.
+
+Local report-scoped properties avoid stronger or different meanings of existing terms:
+
+| Local representation | Reuse boundary |
+|---|---|
+| Presented authentication fields and public-key material | UCO `observable:Credential` specifically denotes a login/password combination; a generic authentication report need not contain such a pair or a verified account. |
+| `evidence:reportedOutcome` with its scope | UCO `action:actionStatus` characterizes an action's state; an ambiguous source flag is not automatically that state. |
+| `evidence:observedAtTime` | PROV `generatedAtTime` describes entity generation, not automatically the source-reported observation time. |
+| `evidence:reportedDurationSeconds` | UCO `observable:duration` is defined for phone-call duration with an integer range; it is not a generic fractional observation-duration field. |
+| Original event types, messages, and detector labels | These are reported metadata, not identity keys, universal class names, exploit actions, or confirmed system effects. |
+
+
 ## PROV-O alignment
 
 | PROV-O superclass | Application subclasses | Interpretation |

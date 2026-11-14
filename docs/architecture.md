@@ -21,6 +21,8 @@ Direct external dependencies are versioned OWL imports. Their versions, semantic
 
 The prefixes below abbreviate the provisional module namespaces, not source formats or software implementations.
 
+Domain specializations and their additional properties are listed in the [interaction and protocol vocabulary](./interaction-vocabulary.md).
+
 | Class | Meaning and boundary |
 |---|---|
 | `infra:HoneypotDeployment` | An installation with its own managed identity; it need not be a physical host or PROV agent. |

@@ -2,7 +2,7 @@
 
 ## Current architecture
 
-The first four items of the [first delivery checklist](./first-delivery-checklist.md) are implemented: shared classes and relationships, reuse decisions, identity policy, and the distinction between interactions, observation information, source records, and observed objects. The [observation model](./observation-model.md) defines the descriptive relationships and optional session context. Detailed authentication, command, protocol, artifact, and GeoIP modeling remains tracked by the subsequent checklist items.
+The first six items of the [first delivery checklist](./first-delivery-checklist.md) are implemented. The shared structure, reuse decisions, identity policy, and [observation model](./observation-model.md) now support the [interaction vocabulary](./interaction-vocabulary.md): captured event reports, session/network context, authentication, command submissions and outcomes, client attributes, ordered protocol parameters, fingerprints, forwarding, errors, and detector labels. File-transfer/recording artifacts and GeoIP remain tracked by the subsequent checklist items.
 
 No executable source mappings, observation datasets, analytical algorithms, federation services, or SHACL shapes are included. No competency question is claimed to have been validated against captured data.
 
@@ -48,3 +48,18 @@ Checked on 14 November 2026 with the same temporary RDF.rb/RDF::Turtle validatio
 - Rechecked local import resolution, external term declarations, named-superclass disjointness, namespace substitution, and relative documentation links.
 
 These checks operate on ontology structure and introduce no observation dataset. The import-closure and full-reasoning limits described above are unchanged.
+
+## Interaction and protocol vocabulary verification
+
+Checked on 14 November 2026 with the same temporary RDF.rb/RDF::Turtle validation environment.
+
+- Parsed the five documents: 718 local triples, 39 classes, 27 object properties, and 50 datatype properties.
+- Rechecked local imports/catalog resolution, documented local terms, references to versioned UCO/PROV declarations, and named-superclass disjointness.
+- Checked that all report specializations retain informational entity semantics, while the optional interaction specializations remain UCO observable actions.
+- Checked that command outcomes do not imply submission reports, credential-change reports do not require a command interface, and public keys do not imply a login/password credential pair.
+- Checked that client-variable descriptors retain the UCO EnvironmentVariable range without inheriting the incompatible ObservableObject description range.
+- Checked that source-reported outcomes do not imply actual action status and that ordered parameter values retain integer positions without identity constraints on repeated values.
+- Checked that durations can retain fractional seconds, that source/report vocabularies remain open, and that no observation/demo instances or required session context were introduced.
+- Rechecked namespace substitution and relative documentation links. Reviewed the field-level reference-source coverage documented in the interaction vocabulary.
+
+No mappings or competency queries were executed. Full OWL reasoning, SHACL, complete transitive-import resolution, and source-data validation remain outside these checks.
