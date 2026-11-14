@@ -125,14 +125,14 @@ evidence:recordLocator
     a owl:DatatypeProperty ;
     rdfs:domain evidence:SourceRecord ;
     rdfs:range xsd:string ;
-    rdfs:label "record locator"@en ;
-    rdfs:comment "A publisher-documented locator within an identified source dataset version. It must include the relevant collection or table scope and must not be interpreted as a global identifier."@en ;
+    rdfs:label "record locator in it's original source"@en ;
+    rdfs:comment "A publisher-documented locator within an identified source dataset version for a record. It must include the relevant collection or table scope and must not be interpreted as a global identifier."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
 
 evidence:localIdentifier
     a owl:DatatypeProperty ;
     rdfs:domain evidence:SourceRecord ;
     rdfs:range xsd:string ;
-    rdfs:label "source-local identifier"@en ;
-    rdfs:comment "An original source key, when supplied. The value is retained for traceability and does not establish record identity across sources or versions."@en ;
+    rdfs:label "source-local identifier. Like a local primary key"@en ;
+    rdfs:comment "An original source or primary key, when supplied. The value is retained for traceability and does not establish record identity across sources or versions."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
