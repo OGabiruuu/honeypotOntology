@@ -42,6 +42,8 @@ Every relationship below is a subclass alignment, not a claim of equivalence wit
 
 `infra:hasSoftware` references `observable:Software` directly. No local synonym for software is introduced. Publishers can similarly reuse relevant UCO classes and facets as detailed domain modeling develops.
 
+`evidence:describesObject` likewise uses `observable:ObservableObject` directly as its range. Being an observed object is a relational role, so a redundant application class is not introduced. `evidence:describesInteraction` instead targets the local specialization of UCO `ObservableAction`. Both specialize the general description property, without equating objects, actions, observation information, or source records. See the [observation model](./observation-model.md).
+
 UCO 1.5.0 declares `core:Event` disjoint with `action:Action`. Therefore, `inter:Interaction`, observation activities, transformation activities, and analysis activities must not also be classified as `core:Event`. A Cowrie event-type label does not justify assigning that UCO class. There is no global equivalence between UCO actions or events and PROV activities.
 
 Application properties are introduced for meanings absent from the selected reused properties: installation association, presented environments, optional session context, source location, and evidential support. For example, `evidence:supportedByRecord` is not a subproperty of `prov:wasDerivedFrom`: a supporting record does not prove a specific derivation.

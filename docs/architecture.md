@@ -52,6 +52,8 @@ The prefixes below abbreviate the provisional module namespaces, not source form
 | `inter:sessionIdentifier` | Session → string | Source-native session key. |
 | `inter:sessionScope` | Session → string | Documented lifecycle or namespace interpreting the key. |
 | `evidence:describes` | Observation → UCO object | The interaction or object described by the observation. |
+| `evidence:describesInteraction` | Observation → interaction | A specialized description of an independently identified interaction. |
+| `evidence:describesObject` | Observation → UCO digital object | A specialized description of an object; uses UCO object classes directly. |
 | `evidence:observedAtDeployment` | Observation → deployment | Capture origin. |
 | `evidence:supportedByRecord` | Observation → source record | Supporting evidence, without automatic derivation. |
 | `evidence:hasSupportingArtifact` | Observation → captured artifact | Retained supporting material. |
@@ -65,12 +67,15 @@ The prefixes below abbreviate the provisional module namespaces, not source form
 
 Use existing UCO and PROV-O properties directly where appropriate. In particular, generation, usage, and derivation do not require application-specific synonyms.
 
+The [observation model](./observation-model.md) explains the distinction between described subjects, supporting records, and optional session context.
+
 ## Interpretation rules
 
 - An observation can describe several subjects and have several supporting records. A record can support several observations. Neither relation is one-to-one.
 - A record does not require a separately identified interaction. This accommodates SQL summaries, state observations, and honeypots without event-level identifiers.
 - Session membership is optional. No property requires protocol, database, or a Honeypot application specific data and structures.
 - A known session context can be attached to observation information without creating an unsupported action or command execution.
+- Specialized descriptions entail `evidence:describes`, while support and session membership remain separate relationships. Session membership is not automatically propagated between observations and their subjects.
 - `inter:Interaction` specializes UCO `ObservableAction`. Other observed occurrences need not be forced into this class; the broader `evidence:describes` relationship can reference other UCO objects, including UCO events when appropriate.
 - This ontology follows OWLs open word concept. Therefore, domain and range axioms only infer types; they are not completeness checks. Reusing a property on an unrelated subject can cause unintended typing, so publishers must follow the documented meanings.
 - There are no application-level minimum cardinalities, functional properties, inverse-functional properties, identity keys, or equivalence assertions.
