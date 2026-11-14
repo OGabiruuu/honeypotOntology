@@ -1,0 +1,72 @@
+@prefix inter: <https://example.org/honeypot/interaction/> .
+@prefix infra: <https://example.org/honeypot/infrastructure/> .
+@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/honeypot/interaction>
+    a owl:Ontology ;
+    owl:versionIRI inter:0.1.0 ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "Observable interactions vocabulary"@en ;
+    rdfs:comment "Interactions and optional session context. Protocol-specific interaction details can extend these definitions."@en ;
+    owl:imports
+        <https://example.org/honeypot/infrastructure/0.1.0> ,
+        core:1.5.0 ,
+        observable:1.5.0 .
+
+inter:Interaction
+    a owl:Class ;
+    rdfs:subClassOf observable:ObservableAction ;
+    rdfs:label "Interaction"@en ;
+    rdfs:comment "An action performed within a digital interaction involving a honeypot. This is the described interaction, not its log record or the act of observing it. Merely having a record does not require minting an interaction."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:Session
+    a owl:Class ;
+    rdfs:subClassOf core:ContextualCompilation ;
+    rdfs:label "Session"@en ;
+    rdfs:comment "An identified context grouping related interactions. A session need not be identical to a network connection and does not require known opening and closing events."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:atDeployment
+    a owl:ObjectProperty ;
+    rdfs:domain inter:Interaction ;
+    rdfs:range infra:HoneypotDeployment ;
+    rdfs:label "at deployment"@en ;
+    rdfs:comment "Associates an interaction with a honeypot installation. It does not identify the deployment as the actor that performed the interaction."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:inSession
+    a owl:ObjectProperty ;
+    rdfs:domain inter:Interaction ;
+    rdfs:range inter:Session ;
+    rdfs:label "interaction in session"@en ;
+    rdfs:comment "Associates an interaction with a recorded session context when known. No minimum cardinality or universal session requirement is imposed."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:sessionAtDeployment
+    a owl:ObjectProperty ;
+    rdfs:domain inter:Session ;
+    rdfs:range infra:HoneypotDeployment ;
+    rdfs:label "session at deployment"@en ;
+    rdfs:comment "Identifies the deployment whose session context is described. This relation is not an OWL identity key."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:sessionIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:Session ;
+    rdfs:range xsd:string ;
+    rdfs:label "source session identifier"@en ;
+    rdfs:comment "A session identifier supplied by the capture system. Interpret it together with deployment and identifier scope; the value is not globally unique by itself."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:sessionScope
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:Session ;
+    rdfs:range xsd:string ;
+    rdfs:label "session identifier scope"@en ;
+    rdfs:comment "The publisher-documented capture lifecycle or namespace within which a source session identifier is interpreted. A scope must not silently imply verified uniqueness."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .

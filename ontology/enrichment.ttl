@@ -1,0 +1,72 @@
+@prefix enrich: <https://example.org/honeypot/enrichment/> .
+@prefix evidence: <https://example.org/honeypot/evidence/> .
+@prefix action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix analysis: <https://ontology.unifiedcyberontology.org/uco/analysis/> .
+@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://example.org/honeypot/enrichment>
+    a owl:Ontology ;
+    owl:versionIRI enrich:0.1.0 ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "Enrichment and analysis vocabulary"@en ;
+    rdfs:comment "Structural foundations for derived information and the processes that generate it. Specific GeoIP fields and analytical methods are not defined by this foundation."@en ;
+    owl:imports
+        <https://example.org/honeypot/evidence/0.1.0> ,
+        action:1.5.0 ,
+        analysis:1.5.0 ,
+        core:1.5.0 ,
+        <http://www.w3.org/ns/prov-o-20130430> .
+
+enrich:DerivedInformation
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject , prov:Entity ;
+    rdfs:label "Derived information"@en ;
+    rdfs:comment "Information produced through transformation, enrichment, or analysis. Known inputs and generation processes can be described using PROV-O without requiring an identified process for every result."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:EnrichmentResult
+    a owl:Class ;
+    rdfs:subClassOf enrich:DerivedInformation ;
+    rdfs:label "Enrichment result"@en ;
+    rdfs:comment "Additional sourced information about an observed object, such as an address lookup. It does not automatically identify an actor or verify that actor's physical location."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:AnalyticalResult
+    a owl:Class ;
+    rdfs:subClassOf enrich:DerivedInformation , analysis:AnalyticResult ;
+    rdfs:label "Analytical result"@en ;
+    rdfs:comment "A characterization resulting from analysis. Reporting a conclusion does not establish that an inferred relationship or attribution is certain."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:EnrichmentActivity
+    a owl:Class ;
+    rdfs:subClassOf action:Action , prov:Activity ;
+    rdfs:label "Enrichment activity"@en ;
+    rdfs:comment "A process obtaining additional information about an observed object. Lookup activity is not automatically classified as detailed analytical examination."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:AnalysisActivity
+    a owl:Class ;
+    rdfs:subClassOf analysis:Analysis , prov:Activity ;
+    rdfs:label "Analysis activity"@en ;
+    rdfs:comment "A detailed examination of information, aligned with UCO Analysis and represented as a provenance activity. No analytical algorithm is prescribed."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:enrichesObject
+    a owl:ObjectProperty ;
+    rdfs:domain enrich:EnrichmentResult ;
+    rdfs:range core:UcoObject ;
+    rdfs:label "enriches object"@en ;
+    rdfs:comment "Identifies the object characterized by an enrichment result. The result remains separately identifiable from the object it characterizes."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:hasSupportingObservation
+    a owl:ObjectProperty ;
+    rdfs:domain enrich:DerivedInformation ;
+    rdfs:range evidence:Observation ;
+    rdfs:label "has supporting observation"@en ;
+    rdfs:comment "Identifies observation information supporting a derived result. This evidential relationship does not by itself assert a known derivation process."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .

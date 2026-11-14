@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
+    <uri name="https://example.org/honeypot" uri="honeypot.ttl"/>
+    <uri name="https://example.org/honeypot/0.1.0" uri="honeypot.ttl"/>
+    <uri name="https://example.org/honeypot/infrastructure" uri="infrastructure.ttl"/>
+    <uri name="https://example.org/honeypot/infrastructure/0.1.0" uri="infrastructure.ttl"/>
+    <uri name="https://example.org/honeypot/interaction" uri="interaction.ttl"/>
+    <uri name="https://example.org/honeypot/interaction/0.1.0" uri="interaction.ttl"/>
+    <uri name="https://example.org/honeypot/evidence" uri="evidence.ttl"/>
+    <uri name="https://example.org/honeypot/evidence/0.1.0" uri="evidence.ttl"/>
+    <uri name="https://example.org/honeypot/enrichment" uri="enrichment.ttl"/>
+    <uri name="https://example.org/honeypot/enrichment/0.1.0" uri="enrichment.ttl"/>
+</catalog>

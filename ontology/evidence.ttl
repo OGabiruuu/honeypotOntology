@@ -1,0 +1,138 @@
+@prefix evidence: <https://example.org/honeypot/evidence/> .
+@prefix infra: <https://example.org/honeypot/infrastructure/> .
+@prefix inter: <https://example.org/honeypot/interaction/> .
+@prefix action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/honeypot/evidence>
+    a owl:Ontology ;
+    owl:versionIRI evidence:0.1.0 ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "Evidence and observations vocabulary"@en ;
+    rdfs:comment "Informational observations, source records, artifacts, and processes supporting their interpretation. Evidential support and derivation are distinct relationships."@en ;
+    owl:imports
+        <https://example.org/honeypot/infrastructure/0.1.0> ,
+        <https://example.org/honeypot/interaction/0.1.0> ,
+        action:1.5.0 ,
+        core:1.5.0 ,
+        observable:1.5.0 ,
+        <http://www.w3.org/ns/prov-o-20130430> .
+
+evidence:Observation
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject , prov:Entity ;
+    rdfs:label "Observation information"@en ;
+    rdfs:comment "An informational account of something observed by a honeypot. It can describe an interaction, an object, or available state without requiring an individually identified occurrence. It is not the UCO activity of observing."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:ObservationActivity
+    a owl:Class ;
+    rdfs:subClassOf observable:Observation , prov:Activity ;
+    rdfs:label "Observation activity"@en ;
+    rdfs:comment "The temporal process of observing, aligned with UCO Observation. Keep its identity separate from the resulting information and source records."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:TransformationActivity
+    a owl:Class ;
+    rdfs:subClassOf action:Action , prov:Activity ;
+    rdfs:label "Transformation activity"@en ;
+    rdfs:comment "A process that converts or normalizes information, such as translating source records into a semantic representation. Use PROV usage and generation properties when the process is known."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:SourceDataset
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject , prov:Entity ;
+    rdfs:label "Source dataset version"@en ;
+    rdfs:comment "An identified dataset version or immutable capture segment used as a scope for locating source records. Its identity is independent of a file path, database name, or transport."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:SourceRecord
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject , prov:Entity ;
+    rdfs:label "Source record"@en ;
+    rdfs:comment "An identified record within a particular source dataset version. It may describe one interaction, several aspects, or accumulated state; it is not assumed to be a single event."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:CapturedArtifact
+    a owl:Class ;
+    rdfs:subClassOf observable:ObservableObject , prov:Entity ;
+    rdfs:label "Captured artifact"@en ;
+    rdfs:comment "Digital material retained from or during observation, independently of its storage format or capture mechanism. An artifact is not automatically a downloaded file or malware."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:describes
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range core:UcoObject ;
+    rdfs:label "describes"@en ;
+    rdfs:comment "Relates observation information to a described interaction or object. This relation does not establish authorship, causation, or identity between described resources."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:observedAtDeployment
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range infra:HoneypotDeployment ;
+    rdfs:label "observed at deployment"@en ;
+    rdfs:comment "Identifies the honeypot installation associated with an observation. It does not assert PROV agent responsibility or ownership of the observed address."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:supportedByRecord
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range evidence:SourceRecord ;
+    rdfs:label "supported by record"@en ;
+    rdfs:comment "Identifies a record supporting an observation. Support alone does not establish that this record generated, or was the sole source of, the observation."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:hasSupportingArtifact
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range evidence:CapturedArtifact ;
+    rdfs:label "has supporting artifact"@en ;
+    rdfs:comment "Relates observation information to retained material supporting it, without asserting which interaction produced the material."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:inSourceDataset
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:SourceRecord ;
+    rdfs:range evidence:SourceDataset ;
+    rdfs:label "in source dataset"@en ;
+    rdfs:comment "Identifies the source dataset version within which a record locator is interpreted. This is a containment relation, not a PROV derivation assertion."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:sourceDeployment
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:SourceDataset ;
+    rdfs:range infra:HoneypotDeployment ;
+    rdfs:label "source deployment"@en ;
+    rdfs:comment "Records a deployment represented in a source dataset. A combined dataset may reference multiple deployments; record-level origin must then be preserved separately."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:inSession
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range inter:Session ;
+    rdfs:label "observation in session"@en ;
+    rdfs:comment "Associates observation information with a known session context without requiring a separately identified interaction."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:recordLocator
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:SourceRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "record locator"@en ;
+    rdfs:comment "A publisher-documented locator within an identified source dataset version. It must include the relevant collection or table scope and must not be interpreted as a global identifier."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:localIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:SourceRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "source-local identifier"@en ;
+    rdfs:comment "An original source key, when supplied. The value is retained for traceability and does not establish record identity across sources or versions."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
