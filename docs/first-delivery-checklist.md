@@ -23,8 +23,8 @@ Use UCO 1.5.0 and the [PROV-O Recommendation of 30 April 2013](https://www.w3.or
 - [x] Distinguish interactions, observations, source records, and observed objects; keep session membership optional. See the [observation model](./observation-model.md).
 - [x] Represent captured events, available session and network context, authentication, commands, and reported outcomes. See the [interaction vocabulary](./interaction-vocabulary.md).
 - [x] Represent available client/protocol metadata, fingerprints, forwarding observations, errors, and detector labels. See the [interaction vocabulary](./interaction-vocabulary.md).
-- [ ] Represent file transfers and failures, captured contents, terminal recordings, paths, and hash algorithms.
-- [ ] Represent country/ASN enrichments with available lookup times and source metadata.
+- [x] Represent file transfers and failures, captured contents, terminal recordings, paths, and hash algorithms. See the [artifact vocabulary](./artifact-vocabulary.md).
+- [x] Represent country/ASN enrichments with available lookup times and source metadata. See the [GeoIP vocabulary](./geoip-vocabulary.md).
 - [ ] Document the conceptual correspondence with JSON and PostgreSQL, coverage differences, transformations, unavailable information, and ambiguous ingestion history.
 - [ ] Preserve traceability from represented observations and enrichments to deployments and source records.
 - [ ] Provide SPARQL query templates for CQ1–CQ6, CQ8, and CQ13–CQ15; document prerequisites without claiming validation against data.

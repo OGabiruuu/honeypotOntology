@@ -73,6 +73,15 @@ Local report-scoped properties avoid stronger or different meanings of existing 
 | Original event types, messages, and detector labels | These are reported metadata, not identity keys, universal class names, exploit actions, or confirmed system effects. |
 
 
+## Artifact and GeoIP extensions
+
+- Transfer, capture, and recording reports specialize informational `evidence:EventObservation`. Captured files specialize both `evidence:CapturedArtifact` and UCO `observable:File`; terminal recordings retain the generic artifact superclass so file storage remains optional.
+- Reuse UCO File/URL classes and facets for distinct stored material and requested resources. Use `observable:ContentDataFacet`, singular `observable:hash`, and `types:Hash` with an explicit method and hexadecimal value for qualified content digests. No local size, storage-path, or hash synonyms are added.
+- Country and ASN results specialize `enrich:EnrichmentResult`, retaining PROV entity semantics and independent provenance. ASN resources reuse UCO `AutonomousSystem`, `AutonomousSystemFacet`, and `observable:number`. Country values and organization labels remain scoped to results rather than asserting a place or verified organization identity.
+- Lookup sources reuse PROV entities with available names, versions, and provider labels. Existing enrichment activities and PROV generation/usage properties represent known processes. Local lookup and cache timestamps preserve meanings distinct from entity-generation time.
+
+The [artifact](./artifact-vocabulary.md) and [GeoIP](./geoip-vocabulary.md) guides document the additional terms and source-coverage limits. These additions do not impose source schemas, required sessions, closed vocabularies, or automatic identity/derivation assertions.
+
 ## PROV-O alignment
 
 | PROV-O superclass | Application subclasses | Interpretation |

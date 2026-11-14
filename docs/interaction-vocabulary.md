@@ -24,21 +24,8 @@ Following the [observation model](./observation-model.md), reports are informati
 
 See [vocabulary reuse](./vocabulary-reuse.md) for UCO/PROV alignment rationale.
 
-## Reference-source coverage
+See the [artifact vocabulary](./artifact-vocabulary.md) for transfers, captured contents, and terminal recordings, and the [GeoIP vocabulary](./geoip-vocabulary.md) for country/ASN enrichments.
 
-The [event catalogue](../../cowrie_event_catalogue.md) provides a coverage reference, not an executable JSON/SQL mapping. Source event codes remain labels.
-
-| Source observations | Available representation |
-|---|---|
-| Session connect/close and parameters | Lifecycle reports, timestamps, network context, duration, and session architecture. |
-| Login success/failure | Authentication reports, presented values, and scoped outcomes. |
-| Command input/results and password changes | Separate submission/outcome reports, original text, and credential-change targets/realms. |
-| Client version, size, variables, and public-key fingerprints | Client attributes, UCO variable descriptors, key material, and typed fingerprints. |
-| SSH key exchange and Telnet options | Ordered negotiation parameters, HASSH/input, and option names/values; Telnet option verbs are not shell commands. |
-| Forwarding request/data and JA4/JA4H | Forwarding origin, scoped channel identifiers, fragments, and typed fingerprints. |
-| Telnet errors, malformed packets, and detector patterns | Error details, message numbers, fragments/lengths, detector labels, vulnerability identifiers, and trigger parameters. |
-
-Partial SQL summaries do not justify fabricating detailed reports. File transfers and terminal recordings are covered separately.
 
 ## Domain class inventory
 

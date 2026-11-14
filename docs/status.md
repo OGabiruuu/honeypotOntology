@@ -2,7 +2,7 @@
 
 ## Current architecture
 
-The first six items of the [first delivery checklist](./first-delivery-checklist.md) are implemented. The shared structure, reuse decisions, identity policy, and [observation model](./observation-model.md) now support the [interaction vocabulary](./interaction-vocabulary.md): captured event reports, session/network context, authentication, command submissions and outcomes, client attributes, ordered protocol parameters, fingerprints, forwarding, errors, and detector labels. File-transfer/recording artifacts and GeoIP remain tracked by the subsequent checklist items.
+The first eight items of the [first delivery checklist](./first-delivery-checklist.md) are implemented. The shared structure, reuse decisions, identity policy, and [observation model](./observation-model.md) support the [interaction vocabulary](./interaction-vocabulary.md), [artifact vocabulary](./artifact-vocabulary.md), and [GeoIP vocabulary](./geoip-vocabulary.md). Coverage includes event reports, session/network context, authentication, commands, protocol metadata, transfers/captured material, terminal recordings, and independently sourced country/ASN results.
 
 No executable source mappings, observation datasets, analytical algorithms, federation services, or SHACL shapes are included. No competency question is claimed to have been validated against captured data.
 
@@ -63,3 +63,18 @@ Checked on 14 November 2026 with the same temporary RDF.rb/RDF::Turtle validatio
 - Rechecked namespace substitution and relative documentation links. Reviewed the field-level reference-source coverage documented in the interaction vocabulary.
 
 No mappings or competency queries were executed. Full OWL reasoning, SHACL, complete transitive-import resolution, and source-data validation remain outside these checks.
+
+## Artifact and GeoIP vocabulary verification
+
+Checked on 14 November 2026 with the same temporary RDF.rb/RDF::Turtle validation environment.
+
+- Parsed the five documents: 857 local triples, 46 classes, 30 object properties, and 64 datatype properties.
+- Added five artifact classes and eight properties, plus two country/ASN result classes and nine properties.
+- Rechecked local imports/catalog targets, declarations and annotations, versioned UCO/PROV references, named-superclass disjointness, namespace substitution, and relative documentation links.
+- Checked that transfer, capture, and recording reports remain informational entities without implying one another or retained material; retained artifacts do not become reports.
+- Checked UCO File reuse for captured files, optional file storage for terminal recordings, and the separate URL range for requested resources.
+- Checked independent country/ASN result hierarchies, direct UCO AutonomousSystem reuse, and organization labels scoped to ASN results.
+- Checked distinct lookup/cache timestamp properties without automatic PROV generation-time semantics, source entities without forced derivation links, and the continued absence of identity/completeness constraints or demo instances.
+- Reviewed reference coverage against the catalogue, schema, writer/importer, and GeoIP cache code. Cache timestamps and preserved older fields do not establish complete lookup history or field-level provenance.
+
+These are syntax and targeted structural checks. Full OWL reasoning and the unresolved unversioned Collections Ontology import remain as documented above; no mappings, SHACL, source-data validation, or competency-query execution were performed.

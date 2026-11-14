@@ -21,7 +21,7 @@ Direct external dependencies are versioned OWL imports. Their versions, semantic
 
 The prefixes below abbreviate the provisional module namespaces, not source formats or software implementations.
 
-Domain specializations and their additional properties are listed in the [interaction and protocol vocabulary](./interaction-vocabulary.md).
+Domain specializations and their additional properties are listed in the [interaction and protocol vocabulary](./interaction-vocabulary.md), [artifact vocabulary](./artifact-vocabulary.md), and [country/ASN enrichment vocabulary](./geoip-vocabulary.md).
 
 | Class | Meaning and boundary |
 |---|---|

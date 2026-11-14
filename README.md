@@ -9,9 +9,11 @@ The ontology's vocabulary is expressed in OWL using Turtle and organized into fo
 - [Requirements and objectives](./docs/orsd.md)
 - [Module structure, term inventory, and namespaces](./docs/architecture.md)
 - [UCO and PROV-O reuse decisions](./docs/vocabulary-reuse.md)
-- [Event, authentication, command, client, and protocol vocabulary](./docs/interaction-vocabulary.md)
 - [Interactions, observations, source records, and observed objects](./docs/observation-model.md)
 - [Identifiers, duplicate handling, and identity limits](./docs/identity-policy.md)
+- [Event, authentication, command, client, and protocol vocabulary](./docs/interaction-vocabulary.md)
+- [Transfers, captured files, and terminal recordings](./docs/artifact-vocabulary.md)
+- [Country/ASN enrichments, sources, and lookup times](./docs/geoip-vocabulary.md)
 - [Ontology entry point](./ontology/honeypot.ttl) and [local import catalog](./ontology/catalog-v001.xml)
 
 This draft establishes the shared structure; it does not include executable source mappings, observation datasets, federation services, or SHACL validation. Detailed domain coverage remains tracked in the checklist.
