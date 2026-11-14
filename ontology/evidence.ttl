@@ -537,3 +537,105 @@ evidence:protocolName
     rdfs:label "reported protocol name"@en ;
     rdfs:comment "The protocol name reported by the capture source. Do not derive it from a port number or treat it as proof of all negotiated protocol characteristics."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+
+# Artifact reports and retained material
+
+evidence:FileTransferObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "File transfer observation"@en ;
+    rdfs:comment "A report of a file transfer or transfer attempt, including a reported failure. It does not require captured content, a successful transfer, or an independently identified interaction."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:FileCaptureObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "File capture observation"@en ;
+    rdfs:comment "A report concerning the capture of file contents. Content can originate from transfers, command redirection, or other mechanisms; this class does not imply a network transfer or malware."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:TerminalRecordingObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Terminal recording observation"@en ;
+    rdfs:comment "A report about the state or characteristics of a terminal recording. Reported opening or finalization does not establish a complete session recording or require known boundaries."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:CapturedFile
+    a owl:Class ;
+    rdfs:subClassOf evidence:CapturedArtifact , observable:File ;
+    rdfs:label "Captured file"@en ;
+    rdfs:comment "Retained material represented as a file. Its capture identity is separate from an emulated file, retrieval URL, content digest, or other captures of equivalent content."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:TerminalRecording
+    a owl:Class ;
+    rdfs:subClassOf evidence:CapturedArtifact ;
+    rdfs:label "Terminal recording"@en ;
+    rdfs:comment "Retained terminal-interaction recording material, independent of format and storage mechanism. Also classify it as a UCO File when file storage is established; this class alone does not require a file or a complete recording."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:requestedURL
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range observable:URL ;
+    rdfs:label "requested URL"@en ;
+    rdfs:comment "A URL reported as requested in a retrieval or transfer context. It identifies the requested resource, not a captured file, successful response, or established content origin."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:sourcePath
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported source path"@en ;
+    rdfs:comment "A reported source-side file path, interpreted in the documented endpoint or presented-environment context. The path does not identify a retained artifact's storage location or prove the source file exists."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:targetPath
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported target path"@en ;
+    rdfs:comment "A reported destination path in the interaction's documented environment, including an emulated target. It is separate from a retained artifact's storage location and does not establish a write on the real host."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:transferDirection
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported transfer direction"@en ;
+    rdfs:comment "A transfer direction interpreted relative to the honeypot, with its meaning documented by the mapping. Do not infer direction from an ambiguous upload/download label alone."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:captureMethod
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported capture method"@en ;
+    rdfs:comment "A documented mechanism associated with content capture, such as redirection or a transfer mechanism. Values are extensible and do not by themselves establish successful transfer or capture."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedCaptureSource
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported capture source"@en ;
+    rdfs:comment "An original source description of how content arrived. Preserve the supplied text separately from normalized mechanism and path fields; its interpretation must be justified by the source mapping."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:artifactState
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported artifact state"@en ;
+    rdfs:comment "The source-reported state of an artifact or recording, such as open or finalized. State belongs to the report and does not establish completeness, permanence, or successful transfer."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedDuplicate
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "reported duplicate flag"@en ;
+    rdfs:comment "A duplicate indicator explicitly supplied by the source. Its source-specific meaning does not establish identity between artifacts, records, occurrences, sessions, or actors; absence does not mean false."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
