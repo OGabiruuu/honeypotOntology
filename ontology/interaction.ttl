@@ -70,3 +70,244 @@ inter:sessionScope
     rdfs:label "session identifier scope"@en ;
     rdfs:comment "The publisher-documented capture lifecycle or namespace within which a source session identifier is interpreted. A scope must not silently imply verified uniqueness."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+
+# Domain observations and interactions
+inter:ConnectionAttempt
+    a owl:Class ;
+    rdfs:subClassOf inter:Interaction ;
+    rdfs:label "Connection attempt"@en ;
+    rdfs:comment "An action attempting to establish network communication with a honeypot. It does not assert that the connection was completed or that authentication occurred."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:AuthenticationAttempt
+    a owl:Class ;
+    rdfs:subClassOf inter:Interaction ;
+    rdfs:label "Authentication attempt"@en ;
+    rdfs:comment "An action presenting authentication information to a honeypot. Acceptance is a reported outcome and does not establish a compromised external host or a verified actor identity."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:CommandSubmission
+    a owl:Class ;
+    rdfs:subClassOf inter:Interaction ;
+    rdfs:label "Command submission"@en ;
+    rdfs:comment "An action submitting command text to a honeypot interface. Submission does not establish execution, success, or an effect on the underlying host."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:CredentialChangeAttempt
+    a owl:Class ;
+    rdfs:subClassOf inter:Interaction ;
+    rdfs:label "Credential change attempt"@en ;
+    rdfs:comment "An action attempting to change authentication material in the presented environment. It does not establish a change on the real host."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:ProtocolNegotiation
+    a owl:Class ;
+    rdfs:subClassOf inter:Interaction ;
+    rdfs:label "Protocol negotiation"@en ;
+    rdfs:comment "An independently identified action exchanging protocol parameters. Observed offers and selected values must remain distinguishable."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:ForwardingRequest
+    a owl:Class ;
+    rdfs:subClassOf inter:Interaction ;
+    rdfs:label "Forwarding request"@en ;
+    rdfs:comment "An action requesting traffic forwarding. It does not imply that forwarding was allowed, that a target was reached, or that traffic was delivered."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:ProtocolFingerprint
+    a owl:Class ;
+    rdfs:subClassOf observable:ObservableObject ;
+    rdfs:label "Protocol fingerprint"@en ;
+    rdfs:comment "A fingerprint of protocol or authentication characteristics, identified by its kind and value. It is not a captured-file digest or an actor identifier."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:ProtocolParameter
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject ;
+    rdfs:label "Protocol parameter"@en ;
+    rdfs:comment "An observation-scoped named protocol parameter, optionally qualified by role and traffic direction. Ordered and repeated values are represented separately."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:ParameterValue
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject ;
+    rdfs:label "Parameter value"@en ;
+    rdfs:comment "One lexical value of a named protocol parameter. A list position records ordering when supplied; an encoding identifies how to interpret the preserved lexical form."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:PublicKeyMaterial
+    a owl:Class ;
+    rdfs:subClassOf observable:ObservableObject ;
+    rdfs:label "Public key material"@en ;
+    rdfs:comment "A public-key representation presented by a client. Its reported type and serialization do not establish ownership, authentication acceptance, or an existing account."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:TrafficFragment
+    a owl:Class ;
+    rdfs:subClassOf observable:ObservableObject ;
+    rdfs:label "Traffic fragment"@en ;
+    rdfs:comment "A recorded portion of network or protocol data, preserving its supplied representation. It is not necessarily a complete packet, stream, or delivered message."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+
+# Properties for avalieble context and possible reported values in a honeypot
+inter:sessionConnection
+    a owl:ObjectProperty ;
+    rdfs:domain inter:Session ;
+    rdfs:range observable:NetworkConnection ;
+    rdfs:label "session connection"@en ;
+    rdfs:comment "Associates a session context with a completed or attempted UCO network connection when that correspondence is known. A session may encompass more than one connection."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:relatedConnection
+    a owl:ObjectProperty ;
+    rdfs:domain inter:Interaction ;
+    rdfs:range observable:NetworkConnection ;
+    rdfs:label "related connection"@en ;
+    rdfs:comment "Associates an interaction with a known network connection. This relation does not infer session membership or identify the connection by its address tuple alone."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:hasParameterValue
+    a owl:ObjectProperty ;
+    rdfs:domain inter:ProtocolParameter ;
+    rdfs:range inter:ParameterValue ;
+    rdfs:label "has parameter value"@en ;
+    rdfs:comment "Relates a named parameter to individual values. Repeated lexical values retain separate value resources and positions; the RDF property itself is unordered."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:fingerprintKind
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolFingerprint ;
+    rdfs:range xsd:string ;
+    rdfs:label "fingerprint kind"@en ;
+    rdfs:comment "The declared fingerprint family or scheme, such as HASSH, JA4, JA4H, or an SSH public-key fingerprint. The vocabulary remains open."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:fingerprintValue
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolFingerprint ;
+    rdfs:range xsd:string ;
+    rdfs:label "fingerprint value"@en ;
+    rdfs:comment "The fingerprint value as supplied. Equality is meaningful only with its kind and interpretation context and does not imply common authorship."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:fingerprintHashAlgorithm
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolFingerprint ;
+    rdfs:range xsd:string ;
+    rdfs:label "fingerprint hash algorithm"@en ;
+    rdfs:comment "The explicitly known digest algorithm used by a fingerprint scheme. Do not infer it from a generic field name or conflate it with the fingerprint family."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:fingerprintInput
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolFingerprint ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported fingerprint input"@en ;
+    rdfs:comment "A source-supplied representation of the fingerprint input, retained without claiming that the fingerprint was independently recomputed."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:parameterName
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolParameter ;
+    rdfs:range xsd:string ;
+    rdfs:label "parameter name"@en ;
+    rdfs:comment "The source or documented semantic name of a protocol parameter. It is not a globally unique identifier."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:parameterRole
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolParameter ;
+    rdfs:range xsd:string ;
+    rdfs:label "parameter role"@en ;
+    rdfs:comment "The known role of a parameter, such as offered capability, selected value, or protocol option. A role must not be guessed from temporal proximity."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:parameterDirection
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolParameter ;
+    rdfs:range xsd:string ;
+    rdfs:label "parameter traffic direction"@en ;
+    rdfs:comment "The source-declared traffic direction or endpoint role of the parameter. Preserve the perspective used by the source."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:parameterValueCount
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ProtocolParameter ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "reported parameter value count"@en ;
+    rdfs:comment "The known number of values in a source parameter. Zero can preserve an explicitly empty list; absence of this property leaves the count unspecified."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:valueLexicalForm
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ParameterValue ;
+    rdfs:range xsd:string ;
+    rdfs:label "value lexical form"@en ;
+    rdfs:comment "The supplied lexical representation of a parameter value. Interpretation or normalization must be documented rather than inferred from this string."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:valueEncoding
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ParameterValue ;
+    rdfs:range xsd:string ;
+    rdfs:label "value encoding"@en ;
+    rdfs:comment "A documented interpretation or serialization of a parameter value, such as plain text or a JSON scalar. Do not assert an encoding without evidence."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:valuePosition
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:ParameterValue ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "value position"@en ;
+    rdfs:comment "A zero-based position within the values of one named parameter, when order is known. It is not a global event sequence or a causal ordering."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:keyType
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:PublicKeyMaterial ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported public key type"@en ;
+    rdfs:comment "The key type as reported by the source. A key type does not itself identify the serialization or the fingerprint algorithm."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:keyData
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:PublicKeyMaterial ;
+    rdfs:range xsd:string ;
+    rdfs:label "public key data"@en ;
+    rdfs:comment "The client-supplied public-key representation. Preserve the original value without claiming its validity or the identity of its owner."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:keyEncoding
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:PublicKeyMaterial ;
+    rdfs:range xsd:string ;
+    rdfs:label "public key encoding"@en ;
+    rdfs:comment "An explicitly known serialization or encoding of the public-key data."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:fragmentData
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:TrafficFragment ;
+    rdfs:range xsd:string ;
+    rdfs:label "fragment data"@en ;
+    rdfs:comment "The source representation of captured data. A serialized bytes expression must not be evaluated or silently treated as decoded bytes."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:fragmentEncoding
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:TrafficFragment ;
+    rdfs:range xsd:string ;
+    rdfs:label "fragment encoding"@en ;
+    rdfs:comment "The known serialization or encoding of the supplied fragment. If unknown, retain the lexical form without inventing an encoding."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
+
+inter:reportedByteLength
+    a owl:DatatypeProperty ;
+    rdfs:domain inter:TrafficFragment ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "reported byte length"@en ;
+    rdfs:comment "A byte length supplied by the source. It need not equal the character length of the serialized fragment or a locally measured decoded size."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/interaction> .

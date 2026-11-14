@@ -154,3 +154,386 @@ evidence:localIdentifier
     rdfs:label "source-local identifier. Like a local primary key"@en ;
     rdfs:comment "An original source or primary key, when supplied. The value is retained for traceability and does not establish record identity across sources or versions."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+
+# Domain observations and interactions
+evidence:EventObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:Observation ;
+    rdfs:label "Event observation"@en ;
+    rdfs:comment "Information reported about an occurrence or interaction by a capture system. A source event label does not make this informational entity a UCO Event or Action."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:SessionObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:Observation ;
+    rdfs:label "Session observation"@en ;
+    rdfs:comment "Information about available session state or parameters, including accumulated summaries. It does not require a separately logged boundary event or a known session identifier."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:SessionLifecycleObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:SessionObservation , evidence:EventObservation ;
+    rdfs:label "Session lifecycle observation"@en ;
+    rdfs:comment "A report of session connection, opening, closure, or another lifecycle state. A boundary report alone does not prove that all intervening records are available."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:AuthenticationObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Authentication observation"@en ;
+    rdfs:comment "A report about an authentication attempt and its available presented values or honeypot-reported outcome. Missing fields are not default credentials or rejection."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:CommandObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Command observation"@en ;
+    rdfs:comment "A report about submitted command text, command processing, or a command-related result. It may describe only a subcommand and need not identify an execution."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:CommandSubmissionObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:CommandObservation ;
+    rdfs:label "Command submission observation"@en ;
+    rdfs:comment "A report that command text was submitted. It does not entail an execution outcome or an independently identified command execution."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:CommandOutcomeObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:CommandObservation ;
+    rdfs:label "Command outcome observation"@en ;
+    rdfs:comment "A result reported by the honeypot command interpreter or processor. Its command text may cover only a subcommand and is not automatically paired with an earlier submission."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:CredentialChangeObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Credential change observation"@en ;
+    rdfs:comment "A report concerning an attempt to change authentication material. The target username and realm can be retained without asserting that a credential actually changed."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:ClientAttributeObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Client attribute observation"@en ;
+    rdfs:comment "A report of client-supplied or client-related attributes such as a banner, terminal size, variables, or key material. A claimed characteristic is not an authenticated software identity."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:ProtocolNegotiationObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Protocol negotiation observation"@en ;
+    rdfs:comment "A report of protocol parameters or options, including ordered capability lists when supplied. Offered values must not automatically be treated as selected algorithms."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:ForwardingObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Forwarding observation"@en ;
+    rdfs:comment "A report of a forwarding request, channel-related data, or associated traffic characteristics. It does not by itself establish successful delivery or a reachable destination."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:ProtocolErrorObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Protocol error observation"@en ;
+    rdfs:comment "A report of a processing error or malformed protocol data. It preserves the source characterization without automatically establishing a successful exploit."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:DetectionObservation
+    a owl:Class ;
+    rdfs:subClassOf evidence:EventObservation ;
+    rdfs:label "Detection observation"@en ;
+    rdfs:comment "A detector-reported label, vulnerability identifier, or suspicious input. It is evidence of a reported detection rather than proof that the labeled exploit succeeded."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+# Available context and reported values
+
+evidence:networkConnection
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range observable:NetworkConnection ;
+    rdfs:label "observed network connection"@en ;
+    rdfs:comment "Associates observation information with a UCO network connection whose available endpoint characteristics are recorded through UCO facets. Connection identity and session membership are not inferred from endpoint values."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:hasFingerprint
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range inter:ProtocolFingerprint ;
+    rdfs:label "has fingerprint"@en ;
+    rdfs:comment "Associates an observation with a fingerprint of a declared kind. This is not an attribution, identity key, or captured-file hash relationship."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:hasProtocolParameter
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range inter:ProtocolParameter ;
+    rdfs:label "has protocol parameter"@en ;
+    rdfs:comment "Associates an observation with a named protocol parameter and its available values, direction, and role."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:clientVariable
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range observable:EnvironmentVariable ;
+    rdfs:label "client variable"@en ;
+    rdfs:comment "Associates an observation with a UCO environment-variable descriptor supplied by a client. This UCO descriptor is an inherent characterization, not an ObservableObject; its presence does not establish a process effect."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:hasPublicKey
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range inter:PublicKeyMaterial ;
+    rdfs:label "has public key material"@en ;
+    rdfs:comment "Associates a report with key material presented by a client, without asserting successful authentication or key ownership."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:hasTrafficFragment
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range inter:TrafficFragment ;
+    rdfs:label "has traffic fragment"@en ;
+    rdfs:comment "Associates a report with recorded traffic or malformed-packet data. It does not assert reassembly, completeness, or delivery."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:forwardingOriginAddress
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:ForwardingObservation ;
+    rdfs:range observable:IPAddress ;
+    rdfs:label "reported forwarding origin address"@en ;
+    rdfs:comment "The origin address stated in a forwarding report. This role is distinct from the source endpoint of the enclosing client connection."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:triggerParameter
+    a owl:ObjectProperty ;
+    rdfs:domain evidence:DetectionObservation ;
+    rdfs:range inter:ProtocolParameter ;
+    rdfs:label "detector trigger parameter"@en ;
+    rdfs:comment "A named input identified by the detector as part of its trigger. It does not assert an independent exploit or a resulting system effect."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:sourceEventType
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:EventObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "source event type"@en ;
+    rdfs:comment "The original event-type code reported by the source. It is a classification label, not a unique record or occurrence identifier."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:rawMessage
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:EventObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "raw event message"@en ;
+    rdfs:comment "The source's human-readable event message, retained separately from structured values. Its wording alone must not override known structured semantics."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:observedAtTime
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "source-reported observation time"@en ;
+    rdfs:comment "The timestamp reported for the observation by its source. It is distinct from semantic ingestion time, artifact generation time, and lookup time; source clocks are not assumed synchronized."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:sequencePosition
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:SourceRecord ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "source sequence position"@en ;
+    rdfs:comment "A documented zero-based record position within one identified source dataset version. A primary key is not automatically a temporal sequence and positions across sources are not comparable."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedStartTime
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:SessionObservation ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "reported session start time"@en ;
+    rdfs:comment "A start time explicitly available in a session description. It does not require manufacturing a connection event or filling missing boundaries."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedEndTime
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:SessionObservation ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "reported session end time"@en ;
+    rdfs:comment "An end time explicitly available in a session description. It is not inferred merely from the absence of later records."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedDurationSeconds
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "reported duration in seconds"@en ;
+    rdfs:comment "A source-reported duration expressed in seconds. Any conversion from source units must be documented; it need not equal a timestamp difference measured with other boundaries."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:lifecycleState
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:SessionLifecycleObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported lifecycle state"@en ;
+    rdfs:comment "The lifecycle state explicitly reported by the capture source. The vocabulary is open and no state is inferred from missing records."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:presentedUsername
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "presented username"@en ;
+    rdfs:comment "A username presented in the observed interaction or client context. It does not establish a real account, an actor identity, or a successful login."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:presentedPassword
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "presented password"@en ;
+    rdfs:comment "A password value presented in an observed authentication context. Absence and an explicitly empty password remain different; no default value is invented."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:authenticationMethod
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:AuthenticationObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported authentication method"@en ;
+    rdfs:comment "The authentication method when explicitly known. Do not infer method, acceptance, or a complete credential pair merely from a fingerprint report."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedRealm
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported realm"@en ;
+    rdfs:comment "A source-supplied realm or processing-context label, retained without assuming that every such label names an authentication mechanism."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:commandText
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:CommandObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported command text"@en ;
+    rdfs:comment "The submitted or result-associated command text as reported. It may contain compound commands or identify only a subcommand; parsing and execution linkage are not implied."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:targetUsername
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:CredentialChangeObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "credential-change target username"@en ;
+    rdfs:comment "The account name targeted in a credential-change report. It is distinct from an authenticated actor identity and from a presented login username."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedOutcome
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported outcome"@en ;
+    rdfs:comment "An outcome whose meaning is established by the source and reporting context. Do not translate ambiguous default booleans into success or failure."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:outcomeScope
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "outcome scope"@en ;
+    rdfs:comment "The documented scope of a reported result, such as honeypot authentication acceptance or emulated command processing. It does not establish effects outside that scope."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:clientBanner
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ClientAttributeObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported client banner"@en ;
+    rdfs:comment "The client-supplied identification or version banner. It is not independent proof of installed software or its version."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:terminalColumns
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ClientAttributeObservation ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "terminal columns"@en ;
+    rdfs:comment "The client-reported terminal width in character columns, not pixels. Preserve changes as separate observation information."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:terminalRows
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ClientAttributeObservation ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "terminal rows"@en ;
+    rdfs:comment "The client-reported terminal height in character rows, not pixels."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedArchitecture
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:SessionObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported session architecture"@en ;
+    rdfs:comment "The architecture or execution-environment label reported for the session context. It is not automatically the client architecture or the real host architecture."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:reportedChannelIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ForwardingObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported channel identifier"@en ;
+    rdfs:comment "A source identifier for a channel or forwarding-data context. Its scope and correspondence must be verified; matching strings alone do not establish a shared channel."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:forwardingOriginPort
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ForwardingObservation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "reported forwarding origin port"@en ;
+    rdfs:comment "The origin port stated in a forwarding report. It is not automatically the source port of the enclosing client connection."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:errorMessage
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ProtocolErrorObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported protocol error message"@en ;
+    rdfs:comment "The source-reported processing error or malformed-data description, without an inferred exploit result."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:errorCode
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ProtocolErrorObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported protocol error code"@en ;
+    rdfs:comment "An explicitly supplied error code or error category. Its interpretation is source- and protocol-dependent."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:messageNumber
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:ProtocolErrorObservation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "reported protocol message number"@en ;
+    rdfs:comment "A protocol message number supplied with a malformed-data or error report. It is not an event sequence or a unique packet identifier."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:detectorLabel
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:DetectionObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "detector label"@en ;
+    rdfs:comment "A label assigned by the source detector, such as a suspected exploit pattern. It is not proof of exploitation or actor attribution."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:vulnerabilityIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:DetectionObservation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported vulnerability identifier"@en ;
+    rdfs:comment "A vulnerability identifier associated with a detector report, such as a CVE identifier. It does not assert that the target was vulnerable or that exploitation succeeded."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:protocolName
+    a owl:DatatypeProperty ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported protocol name"@en ;
+    rdfs:comment "The protocol name reported by the capture source. Do not derive it from a port number or treat it as proof of all negotiated protocol characteristics."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
