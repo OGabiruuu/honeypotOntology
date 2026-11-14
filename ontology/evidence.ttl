@@ -70,7 +70,25 @@ evidence:describes
     rdfs:domain evidence:Observation ;
     rdfs:range core:UcoObject ;
     rdfs:label "describes"@en ;
-    rdfs:comment "Relates observation information to a described interaction or object. This relation does not establish authorship, causation, or identity between described resources."@en ;
+    rdfs:comment "Relates observation information to a described UCO resource. Use the specialized descriptions when its role as an interaction or digital object is known; this general relation also accommodates other subjects or uncertain classification. It does not establish authorship, causation, or identity between described resources."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:describesInteraction
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf evidence:describes ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range inter:Interaction ;
+    rdfs:label "describes interaction"@en ;
+    rdfs:comment "Relates observation information to an independently identified digital interaction. The interaction is the subject of the description, not its supporting record or the act of observing. No session membership or one-to-one correspondence is implied."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
+
+evidence:describesObject
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf evidence:describes ;
+    rdfs:domain evidence:Observation ;
+    rdfs:range observable:ObservableObject ;
+    rdfs:label "describes object"@en ;
+    rdfs:comment "Relates observation information to a digital object characterized by it, reusing UCO ObservableObject directly. Being observed is a role in this relation, not a separate local object class. A source record or artifact can itself be an observed object without making its supporting and descriptive roles equivalent."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
 
 evidence:observedAtDeployment
@@ -118,7 +136,7 @@ evidence:inSession
     rdfs:domain evidence:Observation ;
     rdfs:range inter:Session ;
     rdfs:label "observation in session"@en ;
-    rdfs:comment "Associates observation information with a known session context without requiring a separately identified interaction."@en ;
+    rdfs:comment "Optionally associates observation information with a known session context without requiring a separately identified interaction. It does not automatically propagate session membership to a described interaction or object."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
 
 evidence:recordLocator

@@ -44,7 +44,7 @@ inter:inSession
     rdfs:domain inter:Interaction ;
     rdfs:range inter:Session ;
     rdfs:label "interaction in session"@en ;
-    rdfs:comment "Associates an interaction with a recorded session context when known. No minimum cardinality or universal session requirement is imposed."@en ;
+    rdfs:comment "Optionally associates an interaction with a recorded session context when known. This does not automatically assign that session to observation information describing the interaction. No minimum cardinality or universal session requirement is imposed."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/interaction> .
 
 inter:sessionAtDeployment
