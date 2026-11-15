@@ -86,7 +86,7 @@ The [observation model](./observation-model.md) explains the distinction between
 
 ## Namespaces
 
-The table lists vocabulary namespaces for classes and properties. Published instances use separate, persistent HTTP(S) IRIs under a controlled domain, with a stable installation path and UUID-based paths for its named resources. The domain may serve one or several installations. Local tests without a publication domain use `urn:uuid:...` identifiers. See the [identity and migration policy](./identity-policy.md); neither IRI paths nor UUID suffixes imply origin or identity automatically.
+The table lists vocabulary namespaces for classes and properties. Published instances of ontology-compeling honeypots must use separate, persistent HTTP(S) IRIs under a controlled domain, with a stable installation path and UUID-based paths for its named resources. The domain may serve one or several installations. Local tests without a publication domain use `urn:uuid:...` identifiers. See the [identity and migration policy](./identity-policy.md); neither IRI paths nor UUID suffixes imply origin or identity automatically.
 
 | Prefix | Namespace |
 |---|---|
