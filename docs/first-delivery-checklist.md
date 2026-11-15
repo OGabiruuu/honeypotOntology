@@ -26,6 +26,6 @@ Use UCO 1.5.0 and the [PROV-O Recommendation of 30 April 2013](https://www.w3.or
 - [x] Represent file transfers and failures, captured contents, terminal recordings, paths, and hash algorithms. See the [artifact vocabulary](./artifact-vocabulary.md).
 - [x] Represent country/ASN enrichments with available lookup times and source metadata. See the [GeoIP vocabulary](./geoip-vocabulary.md).
 - [x] Document the conceptual correspondence with JSON and PostgreSQL, coverage differences, transformations, unavailable information, and ambiguous ingestion history. See the [Honey source correspondence](../../honey-semantic-correspondence.md), maintained outside the ontology directory.
-- [ ] Preserve traceability from represented observations and enrichments to deployments and source records.
+- [x] Preserve traceability from represented observations and enrichments to deployments and source records. See the [structural traceability review](./traceability.md), including publication conditions and incomplete-source cases; mappings and data validation remain excluded.
 - [ ] Provide SPARQL query templates for CQ1–CQ6, CQ8, and CQ13–CQ15; document prerequisites without claiming validation against data.
 - [ ] Check ontology syntax, module references, and structural coverage of the selected competency questions.

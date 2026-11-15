@@ -11,6 +11,7 @@ The ontology's vocabulary is expressed in OWL using Turtle and organized into fo
 - [Module structure, term inventory, and namespaces](./docs/architecture.md)
 - [UCO and PROV-O reuse decisions](./docs/vocabulary-reuse.md)
 - [Interactions, observations, source records, and observed objects](./docs/observation-model.md)
+- [Traceability to deployments, source records, and enrichment sources](./docs/traceability.md)
 - [Identifiers, duplicate handling, and identity limits](./docs/identity-policy.md)
 - [Event, authentication, command, client, and protocol vocabulary](./docs/interaction-vocabulary.md)
 - [Transfers, captured files, and terminal recordings](./docs/artifact-vocabulary.md)

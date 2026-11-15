@@ -71,6 +71,8 @@ Use existing UCO and PROV-O properties directly where appropriate. In particular
 
 The [observation model](./observation-model.md) explains the distinction between described subjects, supporting records, and optional session context.
 
+The [traceability guide](./traceability.md) documents paths to capture deployments, located source records, and enrichment sources, including the limits of support and PROV derivation relationships.
+
 ## Interpretation rules
 
 - An observation can describe several subjects and have several supporting records. A record can support several observations. Neither relation is one-to-one.

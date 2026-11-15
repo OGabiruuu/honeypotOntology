@@ -36,3 +36,5 @@ Name source entities with `rdfs:label` or UCO `core:name`; retain known version/
 Known processes reuse `enrich:EnrichmentActivity`, PROV `used` for inputs, and `wasGeneratedBy` for results. Use `wasDerivedFrom` for justified derivation and `wasAssociatedWith` for established agent responsibility. The lookup-source relation alone asserts neither process. Known activity boundaries use PROV start/end properties; entity-generation time uses `prov:generatedAtTime`.
 
 Lookup time, cache-write time, entity-generation time, and historical validity are distinct. A shared cache timestamp does not prove that all fields share a lookup. Independent country/ASN results preserve known differences; splitting already merged information cannot recover missing field-level provenance. No identity constraints, required sessions, or automatic derivation links are added.
+
+See the [traceability guide](./traceability.md) for distinct paths to supporting capture observations, located cache records, and external reference sources. Matching IP subjects alone do not establish support or the deployment that performed the lookup.

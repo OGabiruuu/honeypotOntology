@@ -2,9 +2,11 @@
 
 ## Current architecture
 
-The first eight items of the [first delivery checklist](./first-delivery-checklist.md) are implemented. The shared structure, reuse decisions, identity policy, and [observation model](./observation-model.md) support the [interaction vocabulary](./interaction-vocabulary.md), [artifact vocabulary](./artifact-vocabulary.md), and [GeoIP vocabulary](./geoip-vocabulary.md). Coverage includes event reports, session/network context, authentication, commands, protocol metadata, transfers/captured material, terminal recordings, and independently sourced country/ASN results.
+The first ten items of the [first delivery checklist](./first-delivery-checklist.md) are complete at the ontology-structure/documentation level. The shared structure, reuse decisions, identity policy, and [observation model](./observation-model.md) support the [interaction vocabulary](./interaction-vocabulary.md), [artifact vocabulary](./artifact-vocabulary.md), and [GeoIP vocabulary](./geoip-vocabulary.md). Coverage includes event reports, session/network context, authentication, commands, protocol metadata, transfers/captured material, terminal recordings, and independently sourced country/ASN results.
 
 No executable source mappings, observation datasets, analytical algorithms, federation services, or SHACL shapes are included. No competency question is claimed to have been validated against captured data.
+
+The tenth checklist item is covered by the [traceability review](./traceability.md): existing capture/support/record paths, independent enrichment sources, justified PROV derivation/process paths, and explicitly documented incomplete-source cases. This is a structural/documentation result, not a claim of traceability validated against published records.
 
 ## Naming
 
@@ -94,3 +96,11 @@ The review identifies incompatible command flags, lost/overwritten metadata, ing
 The identity policy now uses controlled-domain HTTP(S) IRIs for publication, with stable installation paths and UUID-based resource paths. UUID URNs are the convention for isolated local tests. Documentation distinguishes installation identity from machines/domains, dataset identity from deployment identity, and UUID generation namespaces from HTTP publication namespaces. Origin remains explicit in ontology relationships.
 
 Promotion to publication or a publication-domain change requires verified continuity and an explicit old/new IRI mapping; vocabulary namespace replacement does not rename instances. The revision affects documentation only. No class/property definitions, UCO/PROV-O alignments, or OWL identity constraints were changed.
+
+## Traceability review
+
+The [traceability guide](./traceability.md) documents the existing paths from observations to capture deployments and located source records, from derived results to supporting observations, and from enrichment results to independent lookup sources. Known record derivations and process inputs reuse PROV-O directly, without equating evidential support with derivation or deployments with responsible agents.
+
+Focused checks compared 16 local domain/range signatures and four pinned PROV-O signatures, verified 14 compatible typed paths, and checked local term references and 57 relative links across seven documents. File checksums confirmed that all five ontology documents and the import catalog were unchanged. The observation-model diagram was corrected to match the declared ObservableObject range of `evidence:describesObject`.
+
+The review explicitly records that no direct support-only derived-result-to-record property exists. Without a known supporting observation or justified derivation/process, that part of the trace remains incomplete; matching subjects or IRI paths do not fill it. Query prerequisites must distinguish partial information from complete record chains. No mappings, RDF datasets, SHACL rules, endpoint discovery, or query execution were introduced, and actual data traceability has not been validated.

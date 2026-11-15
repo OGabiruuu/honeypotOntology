@@ -31,7 +31,7 @@ The following is a schema diagram, not an observation dataset:
 flowchart LR
     O[evidence:Observation] -->|supportedByRecord| R[evidence:SourceRecord]
     O -->|describesInteraction| I[inter:Interaction]
-    O -->|describesObject| D[core:UcoObject]
+    O -->|describesObject| D[observable:ObservableObject]
     O -. optional inSession .-> S[inter:Session]
     I -. optional inSession .-> S
 ```
@@ -59,3 +59,7 @@ Property domains and ranges infer types. Applying `evidence:describesInteraction
 - Missing session information does not assert that no session existed. It leaves the context unspecified under the open-world interpretation.
 
 These rules support stateless and partially recorded interactions as well as session-oriented honeypots.
+
+## Traceability
+
+The [traceability guide](./traceability.md) specifies paths from observations and enrichments to deployments, records, and dataset versions. Capture origin, evidential support, described subjects, lookup sources, and PROV derivation/generation remain distinct. Missing links leave partial information; they do not introduce mandatory session or provenance-process requirements.
