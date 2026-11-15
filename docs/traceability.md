@@ -2,7 +2,7 @@
 
 ## Scope
 
-This guide reviews the existing [evidence](../ontology/evidence.ttl), [interaction](../ontology/interaction.ttl), and [enrichment](../ontology/enrichment.ttl) relationships. It defines paths and interpretation conditions for source-aware publication without adding ontology terms, OWL restrictions, source mappings, data instances, or SHACL validation. Endpoint discovery and federation execution are separate publication concerns.
+This guide reviews the existing [evidence](../ontology/evidence.ttl), [interaction](../ontology/interaction.ttl), and [enrichment](../ontology/enrichment.ttl) relationships. Endpoint discovery and federation execution are separate publication concerns.
 
 ## Capture and source-record paths
 
@@ -48,5 +48,3 @@ Do not apply `evidence:supportedByRecord` or `evidence:observedAtDeployment` dir
 - A standalone interaction remains OWL-valid without a report. Observations, enrichments, and sessions can also retain partial information; absent links are not negative findings or automatic validation failures.
 - Timestamp equality, source labels, paths, foreign-key similarity, or shared values do not establish generation, derivation, actor identity, or cross-source occurrence identity. The [source correspondence](../../honey-semantic-correspondence.md) records Honey's unrecoverable history and cache limits.
 - Consumers must distinguish direct-origin retrieval from retrieval requiring a complete dataset/record chain. Mandatory joins can exclude partial but useful observations. Query prerequisites must state the published links and entailment assumptions they need; generation and support links are not inferred from one another.
-
-The review establishes structural paths and documents their gaps. It does not demonstrate that actual published records satisfy them. Mapping execution, source-data audits, SHACL, and query/federation validation remain outside this item.
