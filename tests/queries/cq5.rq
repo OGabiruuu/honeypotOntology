@@ -1,0 +1,16 @@
+PREFIX hpDemo: <https://example.org/honeypot-demo/>
+PREFIX evidence: <https://example.org/honeypot/evidence/>
+
+SELECT ?observation ?deploy ?dataset ?record ?locator
+WHERE {
+    VALUES ?observation {
+        hpDemo:hp01-auth-observation-02
+    }
+
+    ?observation evidence:observedAtDeployment ?deploy ;
+        evidence:supportedByRecord ?record .
+
+    ?record evidence:inSourceDataset ?dataset ;
+        evidence:recordLocator ?locator .
+}
+ORDER BY ?record ?dataset ?observation

@@ -58,7 +58,7 @@ hpDemo:hp01-auth-record-02
 hpDemo:hp01-auth-observation-02
 a evidence:AuthenticationObservation ;
 evidence:observedAtDeployment hpDemo:honeypot01 ;
-evidence:supportedByRecord hpDemo:hp01-auth-record-01 ;
+evidence:supportedByRecord hpDemo:hp01-auth-record-02 ;
 evidence:observedAtTime "2026-11-15T12:00:05Z"^^xsd:dateTime ;
 evidence:authenticationMethod "password" ;
 evidence:presentedUsername "root" ;

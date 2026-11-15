@@ -1,0 +1,11 @@
+PREFIX evidence: <https://example.org/honeypot/evidence/>
+
+SELECT ?observation ?type ?deploy ?record ?outcome
+WHERE {
+    ?observation evidence:presentedUsername "root" ;
+        a ?type ;
+        evidence:observedAtDeployment ?deploy ;
+        evidence:supportedByRecord ?record .
+
+    OPTIONAL { ?observation evidence:reportedOutcome ?outcome }
+}
