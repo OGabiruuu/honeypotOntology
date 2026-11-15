@@ -1,0 +1,25 @@
+PREFIX evidence: <https://example.org/honeypot/evidence/>
+
+SELECT ?honeypot ?time
+       ?username ?password ?method ?outcome
+WHERE {
+    ?observation a evidence:AuthenticationObservation ;
+        evidence:observedAtDeployment ?honeypot .
+
+    OPTIONAL {
+        ?observation evidence:observedAtTime ?time .
+    }
+    OPTIONAL {
+        ?observation evidence:presentedUsername ?username .
+    }
+    OPTIONAL {
+        ?observation evidence:presentedPassword ?password .
+    }
+    OPTIONAL {
+        ?observation evidence:authenticationMethod ?method .
+    }
+    OPTIONAL {
+        ?observation evidence:reportedOutcome ?outcome .
+    }
+}
+ORDER BY ?honeypot ?time
