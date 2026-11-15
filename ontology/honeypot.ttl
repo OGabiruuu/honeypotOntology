@@ -1,0 +1,14 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://example.org/honeypot>
+    a owl:Ontology ;
+    owl:versionIRI <https://example.org/honeypot/0.1.0> ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "Honeypot application ontology"@en ;
+    rdfs:comment "Entry point for four implementation-independent vocabularies. The namespace is provisional; local import resolution is provided by catalog-v001.xml."@en ;
+    owl:imports
+        <https://example.org/honeypot/infrastructure/0.1.0> ,
+        <https://example.org/honeypot/interaction/0.1.0> ,
+        <https://example.org/honeypot/evidence/0.1.0> ,
+        <https://example.org/honeypot/enrichment/0.1.0> .

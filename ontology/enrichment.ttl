@@ -1,0 +1,164 @@
+@prefix enrich: <https://example.org/honeypot/enrichment/> .
+@prefix evidence: <https://example.org/honeypot/evidence/> .
+@prefix action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix analysis: <https://ontology.unifiedcyberontology.org/uco/analysis/> .
+@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/honeypot/enrichment>
+    a owl:Ontology ;
+    owl:versionIRI enrich:0.1.0 ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "Enrichment and analysis vocabulary"@en ;
+    rdfs:comment "Derived information and its generating processes, including independently sourced country and autonomous-system enrichments of IP addresses. No analytical algorithm is prescribed."@en ;
+    owl:imports
+        <https://example.org/honeypot/evidence/0.1.0> ,
+        action:1.5.0 ,
+        analysis:1.5.0 ,
+        core:1.5.0 ,
+        observable:1.5.0 ,
+        <http://www.w3.org/ns/prov-o-20130430> .
+
+enrich:DerivedInformation
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject , prov:Entity ;
+    rdfs:label "Derived information"@en ;
+    rdfs:comment "Information produced through transformation, enrichment, or analysis. Known inputs and generation processes can be described using PROV-O without requiring an identified process for every result."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:EnrichmentResult
+    a owl:Class ;
+    rdfs:subClassOf enrich:DerivedInformation ;
+    rdfs:label "Enrichment result"@en ;
+    rdfs:comment "Additional sourced information about an observed object, such as an address lookup. It does not automatically identify an actor or verify that actor's physical location."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:AnalyticalResult
+    a owl:Class ;
+    rdfs:subClassOf enrich:DerivedInformation , analysis:AnalyticResult ;
+    rdfs:label "Analytical result"@en ;
+    rdfs:comment "A characterization resulting from analysis. Reporting a conclusion does not establish that an inferred relationship or attribution is certain."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:EnrichmentActivity
+    a owl:Class ;
+    rdfs:subClassOf action:Action , prov:Activity ;
+    rdfs:label "Enrichment activity"@en ;
+    rdfs:comment "A process obtaining additional information about an observed object. Lookup activity is not automatically classified as detailed analytical examination."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:AnalysisActivity
+    a owl:Class ;
+    rdfs:subClassOf analysis:Analysis , prov:Activity ;
+    rdfs:label "Analysis activity"@en ;
+    rdfs:comment "A detailed examination of information, aligned with UCO Analysis and represented as a provenance activity. No analytical algorithm is prescribed."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:enrichesObject
+    a owl:ObjectProperty ;
+    rdfs:domain enrich:EnrichmentResult ;
+    rdfs:range core:UcoObject ;
+    rdfs:label "enriches object"@en ;
+    rdfs:comment "Identifies the object characterized by an enrichment result. The result remains separately identifiable from the object it characterizes."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:hasSupportingObservation
+    a owl:ObjectProperty ;
+    rdfs:domain enrich:DerivedInformation ;
+    rdfs:range evidence:Observation ;
+    rdfs:label "has supporting observation"@en ;
+    rdfs:comment "Identifies observation information supporting a derived result. This evidential relationship does not by itself assert a known derivation process."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+
+
+# Independently sourced IP enrichments
+enrich:CountryEnrichmentResult
+    a owl:Class ;
+    rdfs:subClassOf enrich:EnrichmentResult ;
+    rdfs:label "Country enrichment result"@en ;
+    rdfs:comment "Sourced information assigning a country code or name to an IP address identified through enrichesObject. It is not the address, a geographic place, or verified information about an actor's physical location."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:ASNEnrichmentResult
+    a owl:Class ;
+    rdfs:subClassOf enrich:EnrichmentResult ;
+    rdfs:label "Autonomous system enrichment result"@en ;
+    rdfs:comment "Sourced information associating an IP address with an autonomous system or a reported organization label. It is independently identifiable from country results and does not establish address ownership or actor identity."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:autonomousSystem
+    a owl:ObjectProperty ;
+    rdfs:domain enrich:ASNEnrichmentResult ;
+    rdfs:range observable:AutonomousSystem ;
+    rdfs:label "reported autonomous system"@en ;
+    rdfs:comment "The UCO autonomous-system resource associated with an address by this result. Record its known number using AutonomousSystemFacet; this relationship is not an identity or ownership assertion about the address."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:lookupSource
+    a owl:ObjectProperty ;
+    rdfs:domain enrich:EnrichmentResult ;
+    rdfs:range prov:Entity ;
+    rdfs:label "lookup source"@en ;
+    rdfs:comment "An identified reference dataset, service response, or other information source for a lookup result. This source association does not by itself assert a known PROV generation or derivation process; an intermediate cache record is not automatically the original lookup source."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:countryCode
+    a owl:DatatypeProperty ;
+    rdfs:domain enrich:CountryEnrichmentResult ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported country code"@en ;
+    rdfs:comment "The country code supplied by the lookup source. Document the code scheme in source metadata; do not infer a code from a country name or assume a universal code scheme."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:countryName
+    a owl:DatatypeProperty ;
+    rdfs:domain enrich:CountryEnrichmentResult ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported country name"@en ;
+    rdfs:comment "The country name supplied by the lookup source, preserving its reported spelling. It is descriptive information rather than a place identifier; its language or normalization must be documented when known."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:asnOrganizationName
+    a owl:DatatypeProperty ;
+    rdfs:domain enrich:ASNEnrichmentResult ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported ASN organization name"@en ;
+    rdfs:comment "An organization label associated with an autonomous system by the lookup source. It does not create a verified organization identity, prove IP ownership, or identify the attacker."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:lookedUpAtTime
+    a owl:DatatypeProperty ;
+    rdfs:domain enrich:EnrichmentResult ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "reported lookup time"@en ;
+    rdfs:comment "A documented time associated with the actual lookup producing this information. It is distinct from capture time, cache-write time, and semantic entity generation; it does not establish when the IP-to-country or IP-to-AS association was historically valid."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:cacheRecordedAtTime
+    a owl:DatatypeProperty ;
+    rdfs:domain enrich:EnrichmentResult ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "cache recorded at time"@en ;
+    rdfs:comment "A documented cache-write or cache-update timestamp associated with the represented information. It does not establish the lookup time of every retained field or imply that all fields came from one lookup."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:sourceVersion
+    a owl:DatatypeProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:range xsd:string ;
+    rdfs:label "lookup source version"@en ;
+    rdfs:comment "A documented version or release label of a lookup source entity. Keep the source identity separate from its display label; missing version metadata does not justify an invented snapshot or release date."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
+
+enrich:providerName
+    a owl:DatatypeProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:range xsd:string ;
+    rdfs:label "reported lookup provider name"@en ;
+    rdfs:comment "A provider label documented for a lookup source entity. A name alone does not establish a globally identified organization or PROV agent responsibility."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/enrichment> .
