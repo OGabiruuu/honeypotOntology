@@ -2,18 +2,18 @@
 
 ## Documents and dependencies
 
-The [entry ontology](../ontology/honeypot.ttl) imports four vocabularies. Its role is composition; it introduces no additional domain classes.
+The [entry ontology](../../ontology/honeypot.ttl) imports four vocabularies. Its role is composition; it introduces no additional domain classes.
 
 | Vocabulary | Document | Local dependencies | Responsibility |
 |---|---|---|---|
-| Infrastructure | [infrastructure.ttl](../ontology/infrastructure.ttl) | None | Deployment identity, software components, and presented environment descriptions. |
-| Observable interactions | [interaction.ttl](../ontology/interaction.ttl) | Infrastructure | Described actions involving a honeypot and optional session contexts. |
-| Evidence and observations | [evidence.ttl](../ontology/evidence.ttl) | Infrastructure, interactions | Observation information, source records, retained material, and observation/transformation processes. |
-| Enrichment and analysis | [enrichment.ttl](../ontology/enrichment.ttl) | Evidence and its dependencies | Derived information and the activities that produce it. |
+| Infrastructure | [infrastructure.ttl](../../ontology/infrastructure.ttl) | None | Deployment identity, software components, and presented environment descriptions. |
+| Observable interactions | [interaction.ttl](../../ontology/interaction.ttl) | Infrastructure | Described actions involving a honeypot and optional session contexts. |
+| Evidence and observations | [evidence.ttl](../../ontology/evidence.ttl) | Infrastructure, interactions | Observation information, source records, retained material, and observation/transformation processes. |
+| Enrichment and analysis | [enrichment.ttl](../../ontology/enrichment.ttl) | Evidence and its dependencies | Derived information and the activities that produce it. |
 
 The dependency direction is acyclic. Infrastructure and interactions do not depend on observation records or analytical results. A consumer may load only the lower-level vocabularies it needs; the entry ontology loads all four.
 
-The [XML catalog](../ontology/catalog-v001.xml) resolves local ontology and version IRIs to their Turtle documents. Use it with a catalog-aware ontology loader, or explicitly load the documents with the same IRI mappings. A plain Turtle parser does not automatically apply catalogs or follow imports. The provisional namespace is not a hosted ontology service.
+The [XML catalog](../../ontology/catalog-v001.xml) resolves local ontology and version IRIs to their Turtle documents. Use it with a catalog-aware ontology loader, or explicitly load the documents with the same IRI mappings. A plain Turtle parser does not automatically apply catalogs or follow imports. The provisional namespace is not a hosted ontology service.
 
 Direct external dependencies are versioned OWL imports. Their versions, semantics, and transitive-dependency limits are documented in [Vocabulary Reuse](./vocabulary-reuse.md). Loading the full import closure requires access to those external documents or a separately maintained local cache; such a cache is not bundled here.
 
@@ -21,7 +21,7 @@ Direct external dependencies are versioned OWL imports. Their versions, semantic
 
 The prefixes below abbreviate the provisional module namespaces, not source formats or software implementations.
 
-Domain specializations and their additional properties are listed in the [interaction and protocol vocabulary](./interaction-vocabulary.md), [artifact vocabulary](./artifact-vocabulary.md), and [country/ASN enrichment vocabulary](./geoip-vocabulary.md).
+Domain specializations and their additional properties are listed in the [interaction and protocol vocabulary](../guides/interaction-vocabulary.md), [artifact vocabulary](../guides/artifact-vocabulary.md), and [country/ASN enrichment vocabulary](../guides/geoip-vocabulary.md).
 
 | Class | Meaning and boundary |
 |---|---|
@@ -69,9 +69,9 @@ Domain specializations and their additional properties are listed in the [intera
 
 Use existing UCO and PROV-O properties directly where appropriate. In particular, generation, usage, and derivation do not require application-specific synonyms.
 
-The [observation model](./observation-model.md) explains the distinction between described subjects, supporting records, and optional session context.
+The [observation model](../guides/observation-model.md) explains the distinction between described subjects, supporting records, and optional session context.
 
-The [traceability guide](./traceability.md) documents paths to capture deployments, located source records, and enrichment sources, including the limits of support and PROV derivation relationships.
+The [traceability guide](../guides/traceability.md) documents paths to capture deployments, located source records, and enrichment sources, including the limits of support and PROV derivation relationships.
 
 ## Interpretation rules
 

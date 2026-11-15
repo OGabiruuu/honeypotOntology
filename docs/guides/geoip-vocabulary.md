@@ -2,7 +2,7 @@
 
 ## Independent results
 
-[enrichment.ttl](../ontology/enrichment.ttl) adds two informational subclasses of `enrich:EnrichmentResult`:
+[enrichment.ttl](../../ontology/enrichment.ttl) adds two informational subclasses of `enrich:EnrichmentResult`:
 
 | Class | Meaning |
 |---|---|

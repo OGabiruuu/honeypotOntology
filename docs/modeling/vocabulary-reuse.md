@@ -42,7 +42,7 @@ Every relationship below is a subclass alignment, not a claim of equivalence wit
 
 `infra:hasSoftware` references `observable:Software` directly. No local synonym for software is introduced. Publishers can similarly reuse relevant UCO classes and facets as detailed domain modeling develops.
 
-`evidence:describesObject` likewise uses `observable:ObservableObject` directly as its range. Being an observed object is a relational role, so a redundant application class is not introduced. `evidence:describesInteraction` instead targets the local specialization of UCO `ObservableAction`. Both specialize the general description property, without equating objects, actions, observation information, or source records. See the [observation model](./observation-model.md).
+`evidence:describesObject` likewise uses `observable:ObservableObject` directly as its range. Being an observed object is a relational role, so a redundant application class is not introduced. `evidence:describesInteraction` instead targets the local specialization of UCO `ObservableAction`. Both specialize the general description property, without equating objects, actions, observation information, or source records. See the [observation model](../guides/observation-model.md).
 
 UCO 1.5.0 declares `core:Event` disjoint with `action:Action`. Therefore, `inter:Interaction`, observation activities, transformation activities, and analysis activities must not also be classified as `core:Event`. A Cowrie event-type label does not justify assigning that UCO class. There is no global equivalence between UCO actions or events and PROV activities.
 
@@ -50,7 +50,7 @@ Application properties are introduced for meanings absent from the selected reus
 
 ## Interaction and protocol extensions
 
-The [interaction vocabulary](./interaction-vocabulary.md) adds source-report specializations while preserving the established UCO/PROV boundaries:
+The [interaction vocabulary](../guides/interaction-vocabulary.md) adds source-report specializations while preserving the established UCO/PROV boundaries:
 
 - Connection attempts, authentication attempts, command submissions, credential-change attempts, protocol negotiations, and forwarding requests inherit `inter:Interaction` and therefore UCO `observable:ObservableAction`. These optional action resources do not assert success or require a session.
 - Event, session, authentication, command, client, negotiation, forwarding, error, and detection observation classes inherit informational `evidence:Observation` and `prov:Entity`. They are not subclasses of UCO `core:Event`, `action:Action`, or the observing activity.
@@ -80,7 +80,7 @@ Local report-scoped properties avoid stronger or different meanings of existing 
 - Country and ASN results specialize `enrich:EnrichmentResult`, retaining PROV entity semantics and independent provenance. ASN resources reuse UCO `AutonomousSystem`, `AutonomousSystemFacet`, and `observable:number`. Country values and organization labels remain scoped to results rather than asserting a place or verified organization identity.
 - Lookup sources reuse PROV entities with available names, versions, and provider labels. Existing enrichment activities and PROV generation/usage properties represent known processes. Local lookup and cache timestamps preserve meanings distinct from entity-generation time.
 
-The [artifact](./artifact-vocabulary.md) and [GeoIP](./geoip-vocabulary.md) guides document the additional terms and source-coverage limits. These additions do not impose source schemas, required sessions, closed vocabularies, or automatic identity/derivation assertions.
+The [artifact](../guides/artifact-vocabulary.md) and [GeoIP](../guides/geoip-vocabulary.md) guides document the additional terms and source-coverage limits. These additions do not impose source schemas, required sessions, closed vocabularies, or automatic identity/derivation assertions.
 
 ## PROV-O alignment
 

@@ -9,9 +9,9 @@
 | Source record | `evidence:SourceRecord` | An identifiable record supporting that account, such as a source message or a row within a dataset version. |
 | Observed digital object | UCO `observable:ObservableObject` or an appropriate subclass | An object characterized by an observation; no additional local object class is required. |
 
-The classes and properties are defined in [interaction.ttl](../ontology/interaction.ttl) and [evidence.ttl](../ontology/evidence.ttl). These roles do not depend on a particular protocol, software product, or source schema.
+The classes and properties are defined in [interaction.ttl](../../ontology/interaction.ttl) and [evidence.ttl](../../ontology/evidence.ttl). These roles do not depend on a particular protocol, software product, or source schema.
 
-An observing process is separately represented by `evidence:ObservationActivity`, aligned with UCO `observable:Observation` and PROV-O `prov:Activity`. Observation information and source records are PROV entities. Known generation and derivation relationships use PROV-O directly, as documented in [Vocabulary Reuse](./vocabulary-reuse.md).
+An observing process is separately represented by `evidence:ObservationActivity`, aligned with UCO `observable:Observation` and PROV-O `prov:Activity`. Observation information and source records are PROV entities. Known generation and derivation relationships use PROV-O directly, as documented in [Vocabulary Reuse](../modeling/vocabulary-reuse.md).
 
 ## Description and support
 
@@ -38,7 +38,7 @@ flowchart LR
 
 One observation may describe several subjects and use several records as support. Several observations may describe the same interaction or object. A record can summarize several interactions or accumulated state, so its presence does not require creating an interaction.
 
-Do not equate a supporting record with the interaction it describes. Do not equate an observing activity with its informational result. The [identity policy](./identity-policy.md) governs identifiers and correspondence between representations.
+Do not equate a supporting record with the interaction it describes. Do not equate an observing activity with its informational result. The [identity policy](../modeling/identity-policy.md) governs identifiers and correspondence between representations.
 
 ## Observed objects are roles
 

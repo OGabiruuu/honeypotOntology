@@ -2,7 +2,7 @@
 
 ## Scope and interpretation
 
-[interaction.ttl](../ontology/interaction.ttl) and [evidence.ttl](../ontology/evidence.ttl) cover event reports, session/network context, authentication, commands, protocol metadata, and detections independently of source schemas.
+[interaction.ttl](../../ontology/interaction.ttl) and [evidence.ttl](../../ontology/evidence.ttl) cover event reports, session/network context, authentication, commands, protocol metadata, and detections independently of source schemas.
 
 Following the [observation model](./observation-model.md), reports are information (`evidence:Observation` / PROV `Entity`); independently identified actions use `inter:Interaction` / UCO `ObservableAction`. A log entry does not require a separate action. Fields remain optional, and source labels do not define ontology classes or resource identity.
 
@@ -22,7 +22,7 @@ Following the [observation model](./observation-model.md), reports are informati
 | Forwarding and fragments | Distinguish the reported forwarding origin from the enclosing connection. Scope channel identifiers to their capture context. Preserve supplied fragments, known encoding, and reported byte length without evaluating serialized bytes, assuming Base64, or inferring complete delivery. |
 | Errors and detections | Retain messages, codes, message numbers, detector labels, vulnerability identifiers, and trigger parameters. These reports alone do not establish successful exploitation, target vulnerability, or actor attribution. |
 
-See [vocabulary reuse](./vocabulary-reuse.md) for UCO/PROV alignment rationale.
+See [vocabulary reuse](../modeling/vocabulary-reuse.md) for UCO/PROV alignment rationale.
 
 See the [artifact vocabulary](./artifact-vocabulary.md) for transfers, captured contents, and terminal recordings, and the [GeoIP vocabulary](./geoip-vocabulary.md) for country/ASN enrichments.
 
@@ -58,7 +58,7 @@ See the [artifact vocabulary](./artifact-vocabulary.md) for transfers, captured 
 
 ## Domain property inventory
 
-These properties supplement the shared relationships listed in [Architecture](./architecture.md). None is functional, a key, or an existential completeness requirement.
+These properties supplement the shared relationships listed in [Architecture](../modeling/architecture.md). None is functional, a key, or an existential completeness requirement.
 
 | Property | Domain → range | Meaning |
 |---|---|---|

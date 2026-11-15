@@ -2,7 +2,7 @@
 
 ## Scope
 
-This guide reviews the existing [evidence](../ontology/evidence.ttl), [interaction](../ontology/interaction.ttl), and [enrichment](../ontology/enrichment.ttl) relationships. Endpoint discovery and federation execution are separate publication concerns.
+This guide reviews the existing [evidence](../../ontology/evidence.ttl), [interaction](../../ontology/interaction.ttl), and [enrichment](../../ontology/enrichment.ttl) relationships. Endpoint discovery and federation execution are separate publication concerns.
 
 ## Capture and source-record paths
 
@@ -16,7 +16,7 @@ This guide reviews the existing [evidence](../ontology/evidence.ttl), [interacti
 | `evidence:describesInteraction` | Observation → interaction | Known action described by the account. |
 | `inter:atDeployment` | Interaction → deployment | Deployment involved in the action; separate from capture origin. |
 
-For an observation with known capture origin and source support, publish its deployment link and supporting records, each with its dataset version and documented locator. Preserve multiple supports rather than arbitrarily selecting one. The optional `evidence:localIdentifier` retains a source key but does not replace the scoped locator. Follow the [identity policy](./identity-policy.md).
+For an observation with known capture origin and source support, publish its deployment link and supporting records, each with its dataset version and documented locator. Preserve multiple supports rather than arbitrarily selecting one. The optional `evidence:localIdentifier` retains a source key but does not replace the scoped locator. Follow the [identity policy](../modeling/identity-policy.md).
 
 From a deployment, consumers can search subjects of `evidence:sourceDeployment`, `evidence:observedAtDeployment`, or `inter:atDeployment`. From a dataset they can find its records and supporting observations, then the observations' described interactions. No direct dataset-to-observation or dataset-to-interaction membership property is defined. These traversals need published statements; IRI paths do not supply them.
 
@@ -46,5 +46,5 @@ Do not apply `evidence:supportedByRecord` or `evidence:observedAtDeployment` dir
 
 - Capture origin, located source record, reference source, generating process, and responsible agent are independent questions. A complete path for one does not establish the others.
 - A standalone interaction remains OWL-valid without a report. Observations, enrichments, and sessions can also retain partial information; absent links are not negative findings or automatic validation failures.
-- Timestamp equality, source labels, paths, foreign-key similarity, or shared values do not establish generation, derivation, actor identity, or cross-source occurrence identity. The [source correspondence](../../honey-semantic-correspondence.md) records Honey's unrecoverable history and cache limits.
+- Timestamp equality, source labels, paths, foreign-key similarity, or shared values do not establish generation, derivation, actor identity, or cross-source occurrence identity. The [source correspondence](../../../honey-semantic-correspondence.md) records Honey's unrecoverable history and cache limits.
 - Consumers must distinguish direct-origin retrieval from retrieval requiring a complete dataset/record chain. Mandatory joins can exclude partial but useful observations. Query prerequisites must state the published links and entailment assumptions they need; generation and support links are not inferred from one another.

@@ -2,11 +2,11 @@
 
 ## Current architecture
 
-The first ten items of the [first delivery checklist](./first-delivery-checklist.md) are complete at the ontology-structure/documentation level. The shared structure, reuse decisions, identity policy, and [observation model](./observation-model.md) support the [interaction vocabulary](./interaction-vocabulary.md), [artifact vocabulary](./artifact-vocabulary.md), and [GeoIP vocabulary](./geoip-vocabulary.md). Coverage includes event reports, session/network context, authentication, commands, protocol metadata, transfers/captured material, terminal recordings, and independently sourced country/ASN results.
+The first eleven items of the reordered [first delivery checklist](./first-delivery-checklist.md) are complete at the ontology-structure/documentation level. The shared structure, reuse decisions, identity policy, and [observation model](./guides/observation-model.md) support the [interaction vocabulary](./guides/interaction-vocabulary.md), [artifact vocabulary](./guides/artifact-vocabulary.md), and [GeoIP vocabulary](./guides/geoip-vocabulary.md). Coverage includes event reports, session/network context, authentication, commands, protocol metadata, transfers/captured material, terminal recordings, and independently sourced country/ASN results.
 
 No executable source mappings, observation datasets, analytical algorithms, federation services, or SHACL shapes are included. No competency question is claimed to have been validated against captured data.
 
-The tenth checklist item is covered by the [traceability review](./traceability.md): existing capture/support/record paths, independent enrichment sources, justified PROV derivation/process paths, and explicitly documented incomplete-source cases. This is a structural/documentation result, not a claim of traceability validated against published records.
+The tenth checklist item is covered by the [traceability review](./guides/traceability.md): existing capture/support/record paths, independent enrichment sources, justified PROV derivation/process paths, and explicitly documented incomplete-source cases. This is a structural/documentation result, not a claim of traceability validated against published records.
 
 ## Naming
 
@@ -17,7 +17,7 @@ The tenth checklist item is covered by the [traceability review](./traceability.
 | `evidence:` | `https://example.org/honeypot/evidence/` |
 | `enrich:` | `https://example.org/honeypot/enrichment/` |
 
-These are vocabulary namespaces. Published instances use persistent HTTP(S) IRIs under a controlled domain, with stable installation paths and UUID-based paths for named resources. Local tests without a publication domain can use UUID URNs. The [identity policy](./identity-policy.md) defines stable generation, explicit origin links, and migration; no final instance domain, registry, or dereferencing service has been configured.
+These are vocabulary namespaces. Published instances use persistent HTTP(S) IRIs under a controlled domain, with stable installation paths and UUID-based paths for named resources. Local tests without a publication domain can use UUID URNs. The [identity policy](./modeling/identity-policy.md) defines stable generation, explicit origin links, and migration; no final instance domain, registry, or dereferencing service has been configured.
 
 To replace the provisional vocabulary base before publication:
 
@@ -99,7 +99,7 @@ Promotion to publication or a publication-domain change requires verified contin
 
 ## Traceability review
 
-The [traceability guide](./traceability.md) documents the existing paths from observations to capture deployments and located source records, from derived results to supporting observations, and from enrichment results to independent lookup sources. Known record derivations and process inputs reuse PROV-O directly, without equating evidential support with derivation or deployments with responsible agents.
+The [traceability guide](./guides/traceability.md) documents the existing paths from observations to capture deployments and located source records, from derived results to supporting observations, and from enrichment results to independent lookup sources. Known record derivations and process inputs reuse PROV-O directly, without equating evidential support with derivation or deployments with responsible agents.
 
 Focused checks compared 16 local domain/range signatures and four pinned PROV-O signatures, verified 14 compatible typed paths, and checked local term references and 57 relative links across seven documents. File checksums confirmed that all five ontology documents and the import catalog were unchanged. The observation-model diagram was corrected to match the declared ObservableObject range of `evidence:describesObject`.
 

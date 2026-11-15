@@ -2,7 +2,7 @@
 
 ## Classes and interpretation
 
-[evidence.ttl](../ontology/evidence.ttl) adds five classes and eight properties. Reports remain informational PROV entities; retained material remains separate from the report and any independently identified action.
+[evidence.ttl](../../ontology/evidence.ttl) adds five classes and eight properties. Reports remain informational PROV entities; retained material remains separate from the report and any independently identified action.
 
 | Class | Superclass(es) | Meaning |
 |---|---|---|
