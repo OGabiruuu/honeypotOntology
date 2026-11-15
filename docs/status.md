@@ -15,12 +15,16 @@ No executable source mappings, observation datasets, analytical algorithms, fede
 | `evidence:` | `https://example.org/honeypot/evidence/` |
 | `enrich:` | `https://example.org/honeypot/enrichment/` |
 
-To replace the provisional base before publication:
+These are vocabulary namespaces. Published instances use persistent HTTP(S) IRIs under a controlled domain, with stable installation paths and UUID-based paths for named resources. Local tests without a publication domain can use UUID URNs. The [identity policy](./identity-policy.md) defines stable generation, explicit origin links, and migration; no final instance domain, registry, or dereferencing service has been configured.
+
+To replace the provisional vocabulary base before publication:
 
 1. Choose the final absolute ontology base IRI and preserve the module suffixes and local term names.
 2. Replace the exact string `https://example.org/honeypot` throughout the Turtle documents, catalog entries, and ontology documentation.
 3. Reload the entry ontology with the updated catalog and check all imports, version IRIs, term references, and annotations.
 4. Update any separately maintained queries or mappings using these namespaces.
+
+This vocabulary substitution must not rewrite assigned instance IRIs. Promoting local URNs or changing an instance publication domain requires the separate, documented migration process in the identity policy.
 
 
 ## Initial structural verification
@@ -78,3 +82,15 @@ Checked on 14 November 2026 with the same temporary RDF.rb/RDF::Turtle validatio
 - Reviewed reference coverage against the catalogue, schema, writer/importer, and GeoIP cache code. Cache timestamps and preserved older fields do not establish complete lookup history or field-level provenance.
 
 These are syntax and targeted structural checks. Full OWL reasoning and the unresolved unversioned Collections Ontology import remain as documented above; no mappings, SHACL, source-data validation, or competency-query execution were performed.
+
+## Source-correspondence review
+
+The [external Honey correspondence document](../../honey-semantic-correspondence.md) was reviewed on 14 November 2026 against the catalogue, schema, direct writer, importer, and GeoIP cache implementation. Documentation checks verified relative links, 91 referenced local terms, 17 explicitly prefixed upstream terms, coverage of all 25 catalogued event types, 15 event types handled by the reviewed pipelines, and all ten SQL tables.
+
+The review identifies incompatible command flags, lost/overwritten metadata, ingestion-history ambiguities, and normalized-field gaps for free-form session input and detailed campaign metrics. No ontology document was changed, and no application code, mapping, database query, or source-data validation was executed.
+
+## Instance-publication policy revision
+
+The identity policy now uses controlled-domain HTTP(S) IRIs for publication, with stable installation paths and UUID-based resource paths. UUID URNs are the convention for isolated local tests. Documentation distinguishes installation identity from machines/domains, dataset identity from deployment identity, and UUID generation namespaces from HTTP publication namespaces. Origin remains explicit in ontology relationships.
+
+Promotion to publication or a publication-domain change requires verified continuity and an explicit old/new IRI mapping; vocabulary namespace replacement does not rename instances. The revision affects documentation only. No class/property definitions, UCO/PROV-O alignments, or OWL identity constraints were changed.

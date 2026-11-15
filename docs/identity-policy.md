@@ -4,13 +4,13 @@
 
 This policy defines the meaning and scope of identifiers before source mappings are implemented. It applies to any honeypot implementation. It does not execute ingestion, reconcile historical records, or claim that JSON and SQL occurrences can always be matched.
 
-Vocabulary IRIs identify concepts. Instance IRIs identify installations, records, observations, and other resources. Changing the provisional vocabulary namespace must not change instance identity.
+Vocabulary IRIs identify classes and properties. Instance IRIs identify installations, records, observations, and other resources. Changing the provisional vocabulary namespace must not rewrite already assigned instance IRIs. The publication convention applies to named instances of local or reused classes; existing external resource IRIs can be reused without reminting them.
 
 ## Resource identity
 
 | Resource | Identity policy | Insufficient evidence |
 |---|---|---|
-| Deployment | Assign and persist a globally scoped identifier in a publisher-managed registry. Preserve it across restarts that retain installation continuity; assign a new identity when that continuity is intentionally broken. | Sensor labels, public IPs, hostnames, software names, or an unverified producer UUID. |
+| Deployment | Assign a persistent installation IRI under a controlled publication domain and retain its registry association. Preserve it across restarts or machine changes that retain installation continuity; assign a new identity when that continuity is intentionally broken. | A bare domain/hostname, sensor label, public IP, software name, or unverified producer UUID alone. |
 | Source dataset version | Identify a particular dataset version or immutable capture segment and preserve that identity across copies. Record its deployment associations separately. | A mutable path, database name, or export filename alone. |
 | Source record | Identify the record within its dataset version using a documented locator and preserve the identifier on repeated processing. | A row key without table/source scope, or a timestamp/event-type combination. |
 | Observation information | Assign an identifier to an informational account. Reuse it only when processing the same account under the same interpretation; version changed interpretations. | Shared values or simultaneous timestamps alone. |
@@ -21,15 +21,39 @@ Vocabulary IRIs identify concepts. Instance IRIs identify installations, records
 
 No OWL key, functional property, inverse-functional property, or automatic `owl:sameAs` assertion implements these policies. They are publishing and ingestion responsibilities. The ontology preserves the relevant descriptions and relationships without inferring identity from nonunique values.
 
-## Identifier convention
+## Publication identifiers
 
-Use persistent UUID-based instance IRIs of the form `urn:uuid:{uuid}` as the reference convention. The braces are placeholders, not literal IRI characters. Generate and store a UUID for each newly identified deployment and source dataset version. Keep registry associations with source descriptions and identity lifecycle decisions. The optional `infra:deploymentIdentifier` literal records the registered deployment identifier; source labels can use existing descriptive vocabulary such as `core:name`.
+Use persistent HTTP(S) instance IRIs under a domain controlled by the publisher, normally HTTPS. This can be the honeypot's domain or a shared publication domain serving several installations. `infra:HoneypotDeployment` identifies an installation, not the domain itself or necessarily a physical machine. Assign each installation a stable path; do not reuse it for an unrelated installation later.
 
-For records that have a stable locator in an identified immutable dataset version, a publisher may use UUIDv5 with that dataset UUID as the namespace and a canonical locator string as the name. Otherwise, assign a UUID once and persist the association in the registry. Do not generate a fresh random identifier each time the same record is read. UUID-based identity depends on correct generation and registry management; the ontology does not mathematically guarantee collision-free identifiers.
+Use UUID-based path identifiers for newly named resources originating from that installation, including dataset versions, records, observations, sessions, interactions, artifacts, and derived information when individually identified. The following are complete illustrative identifiers, not an observation dataset or an active publication service:
+
+| Resource | Example instance IRI |
+|---|---|
+| Installation | `https://data.example.org/deployments/hp-01` |
+| Dataset version | `https://data.example.org/deployments/hp-01/datasets/bd644b3c-ea16-46b3-b998-0becc79e8d26` |
+| Observation | `https://data.example.org/deployments/hp-01/observations/550e8400-e29b-41d4-a716-446655440000` |
+
+Paths distinguish resource kinds, while separate publication namespaces distinguish full IRIs even when local UUID strings coincide. UUID generation and registry management must still avoid collisions within a namespace. The ontology does not infer origin from paths: assert `evidence:observedAtDeployment`, `evidence:sourceDeployment`, `inter:sessionAtDeployment`, or other appropriate relationships. A dataset version and its originating installation always retain separate identities. Combined datasets or results with several origins can use a publisher-level path without inventing a single originating deployment.
+
+Following the [Linked Data principles](https://www.w3.org/DesignIssues/LinkedData.html), published HTTP(S) IRIs must allow clients to retrieve useful RDF descriptions. Having a domain in an IRI or exposing a SPARQL endpoint alone does not establish dereferenceability. The serving mechanism remains a publication responsibility; no service or final domain is configured in this delivery.
+
+Retain source/identity lifecycle associations in a publisher-managed registry. The optional `infra:deploymentIdentifier` literal stores the registered installation identifier; descriptive source labels can use `core:name`. These values are not OWL keys. The SQL-to-RDF or other mapping/publication layer assigns instance IRIs, whether RDF is materialized or virtual. Federated queries use those identities rather than generating fresh identifiers.
+
+## Stable generation and local tests
+
+Generate and retain a UUID for each newly identified source dataset version. For records with a stable locator in that immutable version, a publisher may derive a UUIDv5 using the retained dataset UUID as namespace and the canonical locator as name, then embed the result in the record's HTTP(S) IRI. The UUID namespace is distinct from the HTTP publication namespace. Otherwise, assign a UUID once and persist the association; never generate a fresh UUID for the same account on every read or query.
 
 A deterministic observation identifier may similarly be scoped to an identified source record and a versioned mapping rule plus a stable output discriminator. This identifies an informational representation, not a globally reconciled occurrence. A mapping that changes an interpretation must not silently reuse the old observation identity. When one account combines multiple records, assign or resolve its identity explicitly rather than selecting an arbitrary supporting record as its identity key.
 
-No UUID generator or mapping engine is prescribed or implemented in this delivery. The distinction between resource identity, source-local keys, and occurrence correspondence applies equally to other persistent IRI schemes.
+For isolated local tests without a publication domain, use persistent UUID URNs, for example `urn:uuid:550e8400-e29b-41d4-a716-446655440000`. The `urn:uuid:` prefix is literal. These are valid RDF identifiers, but the URNs alone do not provide HTTP lookup. This is the local-test convention, not the publication identifier convention. Keep their assignments stable within the test environment.
+
+No UUID generator, registry, mapping engine, or HTTP publication mechanism is implemented in this delivery. Instance-IRI syntax is a publication policy, not an OWL class restriction.
+
+## Publication migration
+
+When promoting local test resources to HTTP(S) publication, retain an explicit registry mapping from each old URN to its new public IRI after verifying resource continuity. Do not equate resources merely because their UUID suffixes match. An `owl:sameAs` assertion is appropriate only when exact identity has been established; generation, derivation, or revised interpretation is not identity.
+
+A vocabulary namespace change is separate and must not alter instance IRIs. Moving data or changing a honeypot's machine address should preserve its established public IRIs where publication continuity can be maintained. If a publication domain must change, document a controlled IRI migration and retain mappings and resolvable aliases/redirects where possible. Do not silently rename resources during ingestion or query execution.
 
 ## Locator requirements
 

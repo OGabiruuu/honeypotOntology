@@ -248,8 +248,8 @@ evidence:DetectionObservation
     rdfs:comment "A detector-reported label, vulnerability identifier, or suspicious input. It is evidence of a reported detection rather than proof that the labeled exploit succeeded."@en ;
     rdfs:isDefinedBy <https://example.org/honeypot/evidence> .
 
-# Available context and reported values
 
+# Available context and reported values
 evidence:networkConnection
     a owl:ObjectProperty ;
     rdfs:domain evidence:Observation ;
