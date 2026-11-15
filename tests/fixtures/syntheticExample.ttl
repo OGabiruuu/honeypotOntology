@@ -1,0 +1,84 @@
+@prefix hpDemo: <https://example.org/honeypot-demo/> .
+@prefix infra: <https://example.org/honeypot/infrastructure/> .
+@prefix evidence: <https://example.org/honeypot/evidence/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#====-====
+# Defining deployed honeypots
+#====-====
+hpDemo:honeypot01
+  a infra:HoneypotDeployment ;
+  infra:deploymentIdentifier "HP-01" ;
+  rdfs:label "Ficctional honeypot 01"@en .
+
+hpDemo:honeypot02
+  a infra:HoneypotDeployment ;
+  infra:deploymentIdentifier "HP-02" ;
+  rdfs:label "Another ficctional honeypot (02)"@en .
+
+#====-====
+# Auth logs' datasets
+#====-====
+hpDemo:hp01-auth-dataset
+  a evidence:SourceDataset ;
+  rdfs:label "HP-01 authentication data"@en ;
+  evidence:sourceDeployment hpDemo:honeypot01 .
+
+hpDemo:hp02-auth-dataset
+  a evidence:SourceDataset ;
+  rdfs:label "HP-02 authentication data"@en ;
+  evidence:sourceDeployment hpDemo:honeypot02 .
+
+#====-====
+# Records for dataset 1
+#====-====
+hpDemo:hp01-auth-record-01
+  a evidence:SourceRecord ;
+  evidence:inSourceDataset hpDemo:hp01-auth-dataset ;
+  evidence:recordLocator "synthetic-record:1" .
+
+hpDemo:hp01-auth-observation-01
+  a evidence:AuthenticationObservation ;
+  evidence:observedAtDeployment hpDemo:honeypot01 ;
+  evidence:supportedByRecord hpDemo:hp01-auth-record-01 ;
+  evidence:observedAtTime "2026-11-15T12:00:00Z"^^xsd:dateTime ;
+  evidence:authenticationMethod "password" ;
+  evidence:presentedUsername "root" ;
+  evidence:presentedPassword "123456" ;
+  evidence:reportedOutcome "rejected" ;
+  evidence:outcomeScope "honeypot authentication acceptance" .
+
+
+hpDemo:hp01-auth-record-02
+  a evidence:SourceRecord ;
+  evidence:inSourceDataset hpDemo:hp01-auth-dataset ;
+  evidence:recordLocator "synthetic-record:2" .
+
+hpDemo:hp01-auth-observation-02
+a evidence:AuthenticationObservation ;
+evidence:observedAtDeployment hpDemo:honeypot01 ;
+evidence:supportedByRecord hpDemo:hp01-auth-record-01 ;
+evidence:observedAtTime "2026-11-15T12:00:05Z"^^xsd:dateTime ;
+evidence:authenticationMethod "password" ;
+evidence:presentedUsername "root" ;
+evidence:presentedPassword "honey-test" ;
+evidence:reportedOutcome "accepted" ;
+evidence:outcomeScope "honeypot authentication acceptance" .
+
+
+
+# Records for dataset 2
+hpDemo:hp02-auth-record-01
+  a evidence:SourceRecord ;
+  evidence:inSourceDataset hpDemo:hp02-auth-dataset ;
+  evidence:recordLocator "synthetic-record:1" .
+
+hpDemo:hp02-auth-observation-01
+  a evidence:AuthenticationObservation ;
+  evidence:observedAtDeployment hpDemo:honeypot02 ;
+  evidence:supportedByRecord hpDemo:hp02-auth-record-01 ;
+  evidence:observedAtTime "2026-11-15T12:01:00Z"^^xsd:dateTime ;
+  evidence:authenticationMethod "password" ;
+  evidence:presentedUsername "root" ;
+  evidence:presentedPassword "123456" .
