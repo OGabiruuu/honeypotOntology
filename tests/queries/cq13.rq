@@ -1,0 +1,15 @@
+PREFIX evidence: <https://example.org/honeypot/evidence/>
+
+# CQ 13: Which observations matching specified criteria
+# were collected across different honeypots, and which deployment and source
+# record does each observation originate from?
+
+SELECT ?observation ?type ?deploy ?record ?outcome
+WHERE {
+    ?observation evidence:presentedUsername "root" ;
+        a ?type ;
+        evidence:observedAtDeployment ?deploy ;
+        evidence:supportedByRecord ?record .
+
+    OPTIONAL { ?observation evidence:reportedOutcome ?outcome }
+}

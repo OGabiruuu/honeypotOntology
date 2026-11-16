@@ -61,6 +61,7 @@ It aims to be used by programmers, and AI Agents who want to constuct federated 
 - Reuse PROV-O for provenance and document the selected terms and their interpretation in the application domain.
 - Support additional honeypot implementations without requiring changes to shared core definitions. Cowrie event codes, protocols, session structures, and database fields must not become universal prerequisites.
 - Support globally unique identifiers across independent deployments, with documented identity scopes and handling of repeated ingestion and cross-source duplicates.
+- Use persistent, dereferenceable HTTP(S) IRIs under controlled publication domains for named instances, with UUID-based paths for resources originating from installations. Local tests without a publication domain may use UUID URNs; document promotion/migration separately from vocabulary namespace changes. See the [identity policy](./identity-policy.md).
 - Support partial observations and heterogeneous source capabilities. Missing information must not be interpreted as a negative observation or fabricated from defaults.
 - Provide SHACL validation requirements, competency-query examples, and documentation in English.
 
@@ -94,5 +95,5 @@ It aims to be used by programmers, and AI Agents who want to constuct federated 
 #### 5. Integrated retrieval and IP enrichment
 
 - **CQ13:** Which observations matching specified criteria were collected across different honeypots, and which deployment and source record does each observation originate from?
-- **CQ14:** Which country and ASN enrichments are associated with an observed source IP, and when and from which data source were those enrichments obtained, where recorded?
+- **CQ14:** Which country and ASN enrichments are associated with an observed source IP, and when and from which data source were those enrichments obtained?
 - **CQ15:** Which source records or representations refer to the same observed occurrence, and what evidence supports that correspondence?

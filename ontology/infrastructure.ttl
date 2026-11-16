@@ -1,0 +1,56 @@
+@prefix infra: <https://example.org/honeypot/infrastructure/> .
+@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/honeypot/infrastructure>
+    a owl:Ontology ;
+    owl:versionIRI infra:0.1.0 ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "Honeypot infrastructure vocabulary"@en ;
+    rdfs:comment "Deployment identity and the environment presented by a honeypot, independently of its software and protocols."@en ;
+    owl:imports
+        core:1.5.0 ,
+        observable:1.5.0 ,
+        <http://www.w3.org/ns/prov-o-20130430> .
+
+infra:HoneypotDeployment
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject , prov:Entity ;
+    rdfs:label "Honeypot deployment"@en ;
+    rdfs:comment "An independently identified installation of a honeypot. It may contain multiple software components and does not imply a physical host, a particular protocol, or a PROV agent."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/infrastructure> .
+
+infra:PresentedEnvironment
+    a owl:Class ;
+    rdfs:subClassOf core:UcoObject , prov:Entity ;
+    rdfs:label "Presented environment"@en ;
+    rdfs:comment "A description of the environment or persona exposed by a honeypot. Its advertised characteristics do not establish characteristics of the underlying host."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/infrastructure> .
+
+infra:hasSoftware
+    a owl:ObjectProperty ;
+    rdfs:domain infra:HoneypotDeployment ;
+    rdfs:range observable:Software ;
+    rdfs:label "has software"@en ;
+    rdfs:comment "Relates a deployment to a software component used by that installation. Software is represented directly with the UCO vocabulary."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/infrastructure> .
+
+infra:presentsEnvironment
+    a owl:ObjectProperty ;
+    rdfs:domain infra:HoneypotDeployment ;
+    rdfs:range infra:PresentedEnvironment ;
+    rdfs:label "presents environment"@en ;
+    rdfs:comment "Relates a deployment to an environment description it presents. This relationship does not identify that description with the real host."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/infrastructure> .
+
+infra:deploymentIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain infra:HoneypotDeployment ;
+    rdfs:range xsd:string ;
+    rdfs:label "deployment identifier"@en ;
+    rdfs:comment "The registered persistent identifier for an installation. A sensor label, address, or hostname alone is insufficient. Identity is managed by publishers, not inferred through an OWL key."@en ;
+    rdfs:isDefinedBy <https://example.org/honeypot/infrastructure> .

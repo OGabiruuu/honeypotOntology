@@ -1,0 +1,44 @@
+PREFIX evidence: <https://example.org/honeypot/evidence/>
+PREFIX enrich: <https://example.org/honeypot/enrichment/>
+PREFIX core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+
+# CQ14 Which country and ASN enrichments are associated with an observed source IP,
+# and when and from which data source were those enrichments obtained?
+
+SELECT DISTINCT ?ip ?result ?kind ?country ?asn
+                ?lookupTime ?source
+WHERE {
+    VALUES ?ip { "192.0.2.10" }
+
+    ?observation evidence:networkConnection/core:hasFacet/observable:src ?address .
+    ?address core:hasFacet/observable:addressValue ?ip .
+    ?result enrich:enrichesObject ?address .
+
+    {
+        ?result a enrich:CountryEnrichmentResult .
+        BIND("country" AS ?kind)
+
+        OPTIONAL {
+            ?result enrich:countryName ?country .
+        }
+    }
+    UNION
+    {
+        ?result a enrich:ASNEnrichmentResult .
+        BIND("asn" AS ?kind)
+
+        OPTIONAL {
+            ?result enrich:autonomousSystem/core:hasFacet/observable:number
+                ?asn .
+        }
+    }
+
+    OPTIONAL {
+        ?result enrich:lookedUpAtTime ?lookupTime .
+    }
+    OPTIONAL {
+        ?result enrich:lookupSource ?source .
+    }
+}
+ORDER BY ?ip ?kind ?lookupTime ?result ?source ?country ?asn
