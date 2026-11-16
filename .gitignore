@@ -1,0 +1,10 @@
+# OS specific files
+.DS_Store
+
+# Python envs
+.venv/
+venv/
+
+# Temporary files
+.tmp
+.test

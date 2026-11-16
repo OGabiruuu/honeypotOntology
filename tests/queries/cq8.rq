@@ -1,0 +1,24 @@
+PREFIX evidence: <https://example.org/honeypot/evidence/>
+PREFIX inter: <https://example.org/honeypot/interaction/>
+
+# CQ8 Which sessions observed by different honeypots share common
+# credentials, commands, network identifiers, or file hashes?
+
+SELECT ?username ?password
+       (COUNT(DISTINCT ?honeypot) AS ?honeypotCount)
+       (GROUP_CONCAT(
+           DISTINCT STR(?honeypot); SEPARATOR=", "
+       ) AS ?honeypots)
+WHERE {
+    ?observation a evidence:AuthenticationObservation ;
+        evidence:inSession ?session ;
+        evidence:observedAtDeployment ?honeypot ;
+        evidence:authenticationMethod "password" ;
+        evidence:presentedUsername ?username ;
+        evidence:presentedPassword ?password .
+
+    ?session inter:sessionAtDeployment ?honeypot .
+}
+GROUP BY ?username ?password
+HAVING(COUNT(DISTINCT ?honeypot) > 1)
+ORDER BY DESC(?honeypotCount) ?username ?password

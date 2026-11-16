@@ -1,0 +1,161 @@
+@prefix hpDemo: <https://example.org/honeypot-demo/> .
+
+@prefix infra: <https://example.org/honeypot/infrastructure/> .
+@prefix evidence: <https://example.org/honeypot/evidence/> .
+@prefix inter: <https://example.org/honeypot/interaction/> .
+@prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix enrich: <https://example.org/honeypot/enrichment/> .
+
+@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#====-====
+# Defining deployed honeypots
+#====-====
+hpDemo:honeypot01
+  a infra:HoneypotDeployment ;
+  infra:deploymentIdentifier "HP-01" ;
+  rdfs:label "Ficctional honeypot 01"@en .
+
+hpDemo:honeypot02
+  a infra:HoneypotDeployment ;
+  infra:deploymentIdentifier "HP-02" ;
+  rdfs:label "Another ficctional honeypot (02)"@en .
+
+
+#====-====
+# Auth logs' datasets
+#====-====
+hpDemo:hp01-auth-dataset
+  a evidence:SourceDataset ;
+  rdfs:label "HP-01 authentication data"@en ;
+  evidence:sourceDeployment hpDemo:honeypot01 .
+
+hpDemo:hp02-auth-dataset
+  a evidence:SourceDataset ;
+  rdfs:label "HP-02 authentication data"@en ;
+  evidence:sourceDeployment hpDemo:honeypot02 .
+
+
+#====-====
+# Interactions ??
+#====-====
+
+hpDemo:hp01-session-01 a inter:Session ;
+  inter:sessionAtDeployment hpDemo:honeypot01 .
+
+hpDemo:hp02-session-01 a inter:Session ;
+  inter:sessionAtDeployment hpDemo:honeypot02 .
+
+#====-====
+# Observations records
+#====-====
+
+# For dataset 1
+hpDemo:hp01-auth-record-01
+  a evidence:SourceRecord ;
+  evidence:inSourceDataset hpDemo:hp01-auth-dataset ;
+  evidence:recordLocator "synthetic-record:1" .
+
+hpDemo:hp01-auth-observation-01
+  a evidence:AuthenticationObservation ;
+  evidence:observedAtDeployment hpDemo:honeypot01 ;
+  evidence:inSession hpDemo:hp01-session-01 ;
+  evidence:supportedByRecord hpDemo:hp01-auth-record-01 ;
+  evidence:observedAtTime "2026-11-15T12:00:00Z"^^xsd:dateTime ;
+  evidence:authenticationMethod "password" ;
+  evidence:presentedUsername "root" ;
+  evidence:presentedPassword "123456" ;
+  evidence:reportedOutcome "rejected" ;
+  evidence:outcomeScope "honeypot authentication acceptance" .
+
+
+hpDemo:hp01-auth-record-02
+  a evidence:SourceRecord ;
+  evidence:inSourceDataset hpDemo:hp01-auth-dataset ;
+  evidence:recordLocator "synthetic-record:2" .
+
+hpDemo:hp01-auth-observation-02
+a evidence:AuthenticationObservation ;
+evidence:observedAtDeployment hpDemo:honeypot01 ;
+evidence:inSession hpDemo:hp01-session-01 ;
+evidence:supportedByRecord hpDemo:hp01-auth-record-02 ;
+evidence:observedAtTime "2026-11-15T12:00:05Z"^^xsd:dateTime ;
+evidence:authenticationMethod "password" ;
+evidence:presentedUsername "root" ;
+evidence:presentedPassword "honey-test" ;
+evidence:reportedOutcome "accepted" ;
+evidence:outcomeScope "honeypot authentication acceptance" .
+
+
+# Records for dataset 2
+hpDemo:hp02-auth-record-01
+  a evidence:SourceRecord ;
+  evidence:inSourceDataset hpDemo:hp02-auth-dataset ;
+  evidence:recordLocator "synthetic-record:1" .
+
+hpDemo:hp02-auth-observation-01
+  a evidence:AuthenticationObservation ;
+  evidence:observedAtDeployment hpDemo:honeypot02 ;
+  evidence:inSession hpDemo:hp02-session-01 ;
+  evidence:supportedByRecord hpDemo:hp02-auth-record-01 ;
+  evidence:observedAtTime "2026-11-15T12:01:00Z"^^xsd:dateTime ;
+  evidence:authenticationMethod "password" ;
+  evidence:presentedUsername "root" ;
+  evidence:presentedPassword "123456" .
+
+
+#====-====
+# Enriched data
+#====-====
+
+hpDemo:hp01-auth-observation-01
+  evidence:networkConnection hpDemo:hp01-connection-01 .
+
+# Hey, dear reader! Notice the reuse of a UCO class below:
+hpDemo:hp01-connection-01 a observable:NetworkConnection ;
+  core:hasFacet hpDemo:hp01-connection-facet-01 .
+
+hpDemo:hp01-connection-facet-01 a observable:NetworkConnectionFacet ;
+  observable:src hpDemo:source-ip-01 .
+
+hpDemo:source-ip-01 a observable:IPv4Address ;
+  core:hasFacet hpDemo:source-ip-facet-01 .
+
+hpDemo:source-ip-facet-01
+  a observable:IPv4AddressFacet ;
+  observable:addressValue "192.0.2.10" .
+
+
+# Adding geoip data. Which will show the reuse of PROV-O
+hpDemo:geoip-source
+  a prov:Entity ;
+  rdfs:label "Imaginary country with ASN reference"@en ;
+  enrich:providerName "Imaginary demo provider" ;
+  enrich:sourceVersion "demo-v1" .
+
+hpDemo:source-ip-contry-reulst
+  a enrich:CountryEnrichmentResult ;
+  enrich:enrichesObject hpDemo:source-ip-01 ;
+  enrich:hasSupportingObservation hpDemo:hp01-auth-observation-01 ;
+  enrich:countryCode "ZZ" ;
+  enrich:countryName "Imagiland" ;
+  enrich:lookupSource hpDemo:geoip-source ;
+  enrich:lookedUpAtTime "2026-11-15T12:05:00Z"^^xsd:dateTime .
+
+hpDemo:source-ip-asn-result
+  a enrich:ASNEnrichmentResult ;
+  enrich:enrichesObject hpDemo:source-ip-01 ;
+  enrich:hasSupportingObservation hpDemo:hp01-auth-observation-01 ;
+  enrich:autonomousSystem hpDemo:demo-as ;
+  enrich:asnOrganizationName "Imagiland TIM" ;
+  enrich:lookupSource hpDemo:geoip-source ;
+  enrich:lookedUpAtTime "2026-11-15T12:06:00Z"^^xsd:dateTime .
+
+hpDemo:demo-as a observable:AutonomousSystem ;
+  core:hasFacet hpDemo:demo-as-facet .
+
+hpDemo:demo-as-facet a observable:AutonomousSystemFacet ;
+  observable:number 64512 .
