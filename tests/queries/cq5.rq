@@ -1,6 +1,9 @@
 PREFIX hpDemo: <https://example.org/honeypot-demo/>
 PREFIX evidence: <https://example.org/honeypot/evidence/>
 
+# CQ 5: Which honeypot deployment, original observation, and
+source record support a given piece of information?
+
 SELECT ?observation ?deploy ?dataset ?record ?locator
 WHERE {
     VALUES ?observation {
