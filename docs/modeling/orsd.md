@@ -95,5 +95,5 @@ It aims to be used by programmers, and AI Agents who want to constuct federated 
 #### 5. Integrated retrieval and IP enrichment
 
 - **CQ13:** Which observations matching specified criteria were collected across different honeypots, and which deployment and source record does each observation originate from?
-- **CQ14:** Which country and ASN enrichments are associated with an observed source IP, and when and from which data source were those enrichments obtained, where recorded?
+- **CQ14:** Which country and ASN enrichments are associated with an observed source IP, and when and from which data source were those enrichments obtained?
 - **CQ15:** Which source records or representations refer to the same observed occurrence, and what evidence supports that correspondence?

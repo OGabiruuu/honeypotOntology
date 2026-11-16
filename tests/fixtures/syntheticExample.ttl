@@ -112,7 +112,7 @@ hpDemo:hp02-auth-observation-01
 #====-====
 
 hpDemo:hp01-auth-observation-01
-  evidence:networkConnection hpDemo::hp01-connection-01 .
+  evidence:networkConnection hpDemo:hp01-connection-01 .
 
 # Hey, dear reader! Notice the reuse of a UCO class below:
 hpDemo:hp01-connection-01 a observable:NetworkConnection ;
@@ -147,16 +147,15 @@ hpDemo:source-ip-contry-reulst
 
 hpDemo:source-ip-asn-result
   a enrich:ASNEnrichmentResult ;
-  enrich:enrichesObject hpDemo:hp-source-ip-01
+  enrich:enrichesObject hpDemo:source-ip-01 ;
   enrich:hasSupportingObservation hpDemo:hp01-auth-observation-01 ;
   enrich:autonomousSystem hpDemo:demo-as ;
   enrich:asnOrganizationName "Imagiland TIM" ;
-  enrich:lookupSource hpDemo:geoip-source-01 ;
+  enrich:lookupSource hpDemo:geoip-source ;
   enrich:lookedUpAtTime "2026-11-15T12:06:00Z"^^xsd:dateTime .
 
 hpDemo:demo-as a observable:AutonomousSystem ;
   core:hasFacet hpDemo:demo-as-facet .
 
-hpDemo:demo-as-facet ;
-  a observable:AutonomousSystemFacet ;
+hpDemo:demo-as-facet a observable:AutonomousSystemFacet ;
   observable:number 64512 .
